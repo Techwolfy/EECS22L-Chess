@@ -23,7 +23,7 @@ public:
 
 private:
 	//Variables
-	Piece pieces[10][10];
+	Piece pieces[8][8];
 };
 
 #endif //CHESSBOARD_H
