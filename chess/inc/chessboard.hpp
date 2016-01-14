@@ -15,11 +15,9 @@ public:
 
 	//Functions
 	void display();
-	bool move(int fromRow, int fromCol, int toRow, int toCol);
 	side_t getWinner();
-
-	//Variables
-	const enum side_t {NONE = 0, WHITE, BLACK};
+	bool move(int fromRow, int fromCol, int toRow, int toCol);
+	bool isThreatened(int row, int col);
 
 private:
 	//Variables

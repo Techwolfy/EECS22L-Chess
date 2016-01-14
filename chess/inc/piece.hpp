@@ -11,15 +11,22 @@ public:
 	~Piece();
 
 	//Functions
-	virtual void display();
-	virtual bool checkMove(Piece[8][8] board, int fromRow, int fromCol, int toRow, int toCol);
+	virtual chess_t getType();
+	virtual char getDisplayChar();
+	virtual bool checkMove(Piece[8][8] board, int fromRow, int fromCol, int toRow, int toCol, bool threatened);
+	virtual bool move(Piece[8][8] board, int fromRow, int fromCol, int toRow, int toCol);
+	virtual bool revertMove(Piece[8][8] board, int fromRow, int fromCol, int toRow, int toCol);
+	virtual bool checkmate(Piece[8][8] board);
 
 	//Variables
-	const enum chess_t {KING, QUEEN, BISHOP, KNIGHT, ROOK, PAWN};
+	const enum chess_t {NONE = 0, KING, QUEEN, BISHOP, KNIGHT, ROOK, PAWN};
+	const enum side_t {NEITHER = 0, WHITE, BLACK};
 
 private:
 	//Variables
-	char text = ' ';
+	chess_t type;
+	side_t side;
+	char display;
 };
 
 #endif //PIECE_H
