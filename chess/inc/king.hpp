@@ -14,13 +14,10 @@ public:
 	~King();
 
 	//Functions
-	bool checkMove(Piece[8][8] board, int fromRow, int fromCol, int toRow, int toCol, bool threatened);
-	bool move(Piece[8][8] board, int fromRow, int fromCol, int toRow, int toCol);
-	bool revertMove(Piece[8][8] board, int fromRow, int fromCol, int toRow, int toCol);
-	bool checkmate(Piece[8][8] board);
-
-private:
-	bool hasMoved;
+	bool checkMove(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol);
+	bool move(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol);
+	bool revertMove(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol);
+	bool checkmate(ChessBoard board);
 };
 
 #endif //KING_H

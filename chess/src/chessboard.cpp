@@ -71,12 +71,30 @@ bool ChessBoard::move(int fromRow, int fromCol, int toRow, int toCol) {
 		return false;
 	} else {
 		pieces[fromRow][fromCol].move(pieces, fromRow, fromCol, toRow, toCol);
-		//TODO: Special logic for king here?
 	}
 	return true;
 }
 
+//Swap two pieces
+void ChessBoard::swap(int fromRow, int fromCol, int toRow, int toCol) {
+	Piece temp = &pieces[toRow][toCol];
+	pieces[toRow][toCol] = pieces[fromRow][fromCol];
+	pieces[fromRow][fromCol] = temp;
+}
+
 //Determine if a square is threatened by another piece (i.e. it could move there next turn)
-bool ChessBoard::isThreatened(int row, int col) {
-	//TODO: Implement
+side_t ChessBoard::isThreatened(int row, int col) {
+	side_t threatenedSide = Piece::NEITHER;
+	for(int i = 0; i < 8; i++) {
+		for(int j = 0; j < 8; j++) {
+			if(pieces[i][j].checkMove(pieces, i, j, row, col, true)) {
+				if(threatenedSide == Piece::NEITHER) {
+					threatenedSide = pieces[i][j].getSide();
+				} else if(threatenedSide != pieces[i][j].getSide()) {
+					return Pieces::BOTH;
+				}
+			}
+		}
+	}
+	return threatenedSide;
 }

@@ -6,6 +6,7 @@
 
 //Declaration
 class ChessBoard {
+friend class Piece;
 public:
 	//Constructor
 	ChessBoard();
@@ -17,6 +18,7 @@ public:
 	void display();
 	side_t getWinner();
 	bool move(int fromRow, int fromCol, int toRow, int toCol);
+	void swap(int fromRow, int fromCOl, int toRow, int toCol);
 	bool isThreatened(int row, int col);
 
 private:
