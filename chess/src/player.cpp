@@ -2,6 +2,7 @@
 
 //Includes
 #include <stdio.h>
+#include "player.hpp"
 
 //Constructor
 Player::Player() {
@@ -9,7 +10,7 @@ Player::Player() {
 }
 
 //Destructor
-Piece::~Piece() {
+Player::~Player() {
 
 }
 

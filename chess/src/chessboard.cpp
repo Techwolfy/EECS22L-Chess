@@ -66,11 +66,11 @@ side_t ChessBoard::getWinner() {
 
 //Move a piece
 bool ChessBoard::move(int fromRow, int fromCol, int toRow, int toCol) {
-	if(!pieces[fromRow][fromCol].checkMove(pieces, fromRow, fromCol, toRow, toCol, isThreatened(toRow, toCol))) {
+	if(!pieces[fromRow][fromCol].checkMove(this, fromRow, fromCol, toRow, toCol)) {
 		printf("Error; invalid move!\n");
 		return false;
 	} else {
-		pieces[fromRow][fromCol].move(pieces, fromRow, fromCol, toRow, toCol);
+		pieces[fromRow][fromCol].move(this, fromRow, fromCol, toRow, toCol);
 	}
 	return true;
 }

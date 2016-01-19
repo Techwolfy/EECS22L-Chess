@@ -34,7 +34,7 @@ char Piece::getDisplayChar() {
 }
 
 //Check if the piece has moved
-bool Piece::hasMoved() {
+bool Piece::getMoved() {
 	//Defaults to true for blank pieces to prevent glitches when moving
 	return hasMoved;
 }
