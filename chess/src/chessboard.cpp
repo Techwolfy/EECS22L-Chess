@@ -35,21 +35,23 @@ void ChessBoard::display() {
 		printf("\n");
 	}
 
-	printf(" ╔═════════════════╗ \n");
-	printf(" ║┌─┬─┬─┬─┬─┬─┬─┬─┐║ \n");
+	printf(" ╔═════════════════════════════════╗ \n");
+	printf(" ║┌───┬───┬───┬───┬───┬───┬───┬───┐║ \n");
 
 	for(int i = 7; i >= 0; i--) {
 		printf("%d║│", i);
 		for(int j = 0; j < 8; j++) {
-			printf("%c│", pieces[i][j].getDisplayChar());
+			printf(" %c │", pieces[i][j].getDisplayChar());
 		}
 		printf("║ \n");
-		printf(" ║├─┼─┼─┼─┼─┼─┼─┼─┤║ \n");
+		if(i > 0) {
+			printf(" ║├───┼───┼───┼───┼───┼───┼───┼───┤║ \n");
+		}
 	}
 
-	printf(" ║└─┴─┴─┴─┴─┴─┴─┴─┘║ \n");
-	printf(" ╚═════════════════╝ \n");
-	printf("   A B C D E F G H   \n");
+	printf(" ║└───┴───┴───┴───┴───┴───┴───┴───┘║ \n");
+	printf(" ╚═════════════════════════════════╝ \n");
+	printf("    A   B   C   D   E   F   G   H    \n");
 	printf("\n");
 }
 
