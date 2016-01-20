@@ -7,7 +7,7 @@
 //Constructor
 Piece::Piece() : type(NONE),
 				 side(NEITHER),
-				 display(' '),
+				 display(" "),
 				 hasMoved(true) {
 
 }
@@ -29,7 +29,7 @@ side_t Piece::getSide() {
 }
 
 //Return character to display for chess piece
-char Piece::getDisplayChar() {
+const char* Piece::getDisplayChar() {
 	return display;
 }
 

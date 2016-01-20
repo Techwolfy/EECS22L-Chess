@@ -1,7 +1,7 @@
 #Chess Makefile
 
 CXX=g++
-CFLAGS=-std=c++0x
+CFLAGS=-std=c++0x -g
 OBJS=main.o player.o piece.o chessboard.o king.o
 
 #Build everything

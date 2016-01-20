@@ -20,7 +20,7 @@ public:
 	//Functions
 	chess_t getType();
 	side_t getSide();
-	char getDisplayChar();
+	const char* getDisplayChar();
 	bool getMoved();
 	void setMoved();
 	virtual bool checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
@@ -32,7 +32,7 @@ protected:
 	//Variables
 	chess_t type;
 	side_t side;
-	char display;
+	const char *display;
 	bool hasMoved;
 };
 

@@ -41,7 +41,7 @@ void ChessBoard::display() {
 	for(int i = 7; i >= 0; i--) {
 		printf("%d║│", i);
 		for(int j = 0; j < 8; j++) {
-			printf(" %c │", pieces[i][j].getDisplayChar());
+			printf(" %s │", pieces[i][j].getDisplayChar());
 		}
 		printf("║ \n");
 		if(i > 0) {

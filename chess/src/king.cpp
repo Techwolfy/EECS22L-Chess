@@ -12,9 +12,9 @@ King::King(side_t _side) {
 	side = _side;
 	hasMoved = false;
 	if(_side == WHITE) {
-		display = '♚';
+		display = "♚";
 	} else {
-		display = '♔';
+		display = "♔";
 	}
 }
 
