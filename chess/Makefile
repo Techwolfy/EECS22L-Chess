@@ -2,7 +2,7 @@
 
 CXX=g++
 CFLAGS=-std=c++0x
-OBJS=player.o piece.o chessboard.o king.o
+OBJS=main.o player.o piece.o chessboard.o king.o
 
 #Build everything
 .PHONY: all
