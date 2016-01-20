@@ -45,25 +45,25 @@ void Piece::setMoved() {
 }
 
 //Check if a move is valid
-bool Piece::checkMove(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol) {
+bool Piece::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	//Blank piece object
 	return false;
 }
 
 //Make a move if it is valid
-bool Piece::move(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol) {
+bool Piece::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	//Blank piece object
 	return false;
 }
 
 //Revert the previous move
-bool Piece::revertMove(ChessBoard board, int fromRow, int toRow, int toCol) {
+bool Piece::revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	//Black piece object
 	return false;
 }
 
 //Check if the game is over
-side_t Piece::checkmate(ChessBoard board) {
+bool Piece::checkmate(ChessBoard &board, int row, int col) {
 	//Only the king should implement this
 	return NEITHER;
 }

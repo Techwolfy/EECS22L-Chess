@@ -3,10 +3,13 @@
 
 //Includes
 #include "piece.hpp"
+#include "types.hpp"
+
+//Forward declaration of Piece
+class Piece;
 
 //Declaration
 class ChessBoard {
-friend class Piece;
 public:
 	//Constructor
 	ChessBoard();
@@ -16,10 +19,11 @@ public:
 
 	//Functions
 	void display();
+	Piece** getPieces();
 	side_t getWinner();
 	bool move(int fromRow, int fromCol, int toRow, int toCol);
-	void swap(int fromRow, int fromCOl, int toRow, int toCol);
-	bool isThreatened(int row, int col);
+	void swap(int fromRow, int fromCol, int toRow, int toCol);
+	side_t isThreatened(int row, int col);
 
 private:
 	//Variables

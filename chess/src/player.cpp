@@ -15,7 +15,7 @@ Player::~Player() {
 }
 
 //Functions
-bool Player::getMove(int *fromRow, int *fromCol, int *toRow, int *toCol) {
+void Player::getMove(int *fromRow, int *fromCol, int *toRow, int *toCol) {
 	printf("Enter a move (algebraic format; e.g. b2b3): ");
 	scanf("%c%d%c%d", *fromCol, *fromRow, *toCol, *toRow);
 

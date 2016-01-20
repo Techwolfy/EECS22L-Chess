@@ -1,15 +1,16 @@
 //King.cpp
 
 //Includes
-#include <math.h>
+#include <stdlib.h>
 #include "piece.hpp"
 #include "chessboard.hpp"
 #include "king.hpp"
 
 //Constructor
-King::King(side_t _side) : type(KING),
-						   side(_side),
-						   hasMoved(false) {
+King::King(side_t _side) {
+	type = KING;
+	side = _side;
+	hasMoved = false;
 	if(_side == WHITE) {
 		display = '♚';
 	} else {
@@ -23,9 +24,9 @@ King::~King() {
 }
 
 //Functions
-bool King::checkMove(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol) {
+bool King::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	//Out of bounds
-	if(fromRow < 0 || fromRow > 8 || fromCol < 0 || fromCol > 8 || toRow < 0 || toRow > 8 || toCol < 0 || toCol > 8 ||) {
+	if(fromRow < 0 || fromRow > 8 || fromCol < 0 || fromCol > 8 || toRow < 0 || toRow > 8 || toCol < 0 || toCol > 8) {
 		return false;
 	}
 
@@ -40,15 +41,15 @@ bool King::checkMove(ChessBoard board, int fromRow, int fromCol, int toRow, int 
 	}
 
 	//New square must not be threatened (king can't move into check)
-	side_t threat = board.threatened(toRow, toCol);
+	side_t threat = board.isThreatened(toRow, toCol);
 	if(threat != NEITHER && threat != side) {
 		return false;
 	} else {
 		if(isCastling) {
 			if(fromCol < toCol) {
-				threat = board.threatened(fromRow, fromCol + 1);
+				threat = board.isThreatened(fromRow, fromCol + 1);
 			} else {
-				threat = board.threatened(fromRow, fromCol - 1);
+				threat = board.isThreatened(fromRow, fromCol - 1);
 			}
 			if(threat != NEITHER && threat != side) {
 				return false;
@@ -59,11 +60,11 @@ bool King::checkMove(ChessBoard board, int fromRow, int fromCol, int toRow, int 
 	//If castling, rook must not have moved either
 	if(isCastling) {
 		if(fromCol < toCol) {
-			if(board.pieces[fromRow][0].getMoved()) {
+			if(board.getPieces()[fromRow][0].getType != ROOK || board.getPieces()[fromRow][0].getMoved()) {
 				return false;
 			}
 		} else {
-			if(board.pieces[fromRow][7].getMoved()) {
+			if(board.getPieces()[fromRow][0].getType != ROOK || board.getPieces()[fromRow][7].getMoved()) {
 				return false;
 			}
 		}
@@ -73,7 +74,7 @@ bool King::checkMove(ChessBoard board, int fromRow, int fromCol, int toRow, int 
 	return true;
 }
 
-bool King::move(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol) {
+bool King::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	bool isCastling = false;
 	if(fromRow == toRow && abs(fromCol - toCol) == 2) {
 		isCastling = true;
@@ -82,10 +83,10 @@ bool King::move(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol
 	board.swap(fromRow, fromCol, toRow, toCol);
 	if(isCastling) {
 		if(fromCol < toCol) {
-			board.pieces[fromRow][0].setMoved();
+			board.getPieces()[fromRow][0].setMoved();
 			board.swap(fromRow, 0, fromCol, fromCol + 1);
 		} else {
-			board.pieces[fromRow][7].setMoved();
+			board.getPieces()[fromRow][7].setMoved();
 			board.swap(fromRow, 7, fromCol, fromCol - 1);
 		}
 	}
@@ -93,15 +94,15 @@ bool King::move(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol
 	return true;
 }
 
-bool King::revertMove(ChessBoard board, int fromRow, int fromCol, int toRow, int toCol) {
+bool King::revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	//TODO: Implement
 }
 
-bool King::checkmate(ChessBoard board, int row, int col) {
+bool King::checkmate(ChessBoard &board, int row, int col) {
 	for(int i = row - 1; i <= row + 1; i++) {
 		for(int j = col - 1; j <= col + 1; j++) {
 			if(i > 0 && i < 8 && j > 0 && j < 8){
-				side_t threat = board.threatened(i, j);
+				side_t threat = board.isThreatened(i, j);
 				if(threat == NEITHER || threat == side) {
 					return false;
 				}

@@ -11,7 +11,7 @@ public:
 	~Player();
 
 	//Functions
-	virtual bool getMove(int *fromRow, int *fromCol, int *toRow, int *toCol);
+	virtual void getMove(int *fromRow, int *fromCol, int *toRow, int *toCol);
 };
 
 #endif //PIECE_H

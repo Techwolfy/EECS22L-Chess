@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "chessboard.hpp"
 #include "piece.hpp"
+#include "king.hpp"
 
 //Constructor
 ChessBoard::ChessBoard() : pieces{
@@ -52,46 +53,50 @@ void ChessBoard::display() {
 	printf("\n");
 }
 
+Piece** ChessBoard::getPieces() {
+	return pieces;
+}
+
 //Determine if the game is over
 side_t ChessBoard::getWinner() {
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j < 8; j++) {
-			if(pieces[i][j].checkmate()) {
+			if(pieces[i][j].checkmate(*this, i, j)) {
 				return pieces[i][j].getSide();
 			}
 		}
 	}
-	return NONE;
+	return NEITHER;
 }
 
 //Move a piece
 bool ChessBoard::move(int fromRow, int fromCol, int toRow, int toCol) {
-	if(!pieces[fromRow][fromCol].checkMove(this, fromRow, fromCol, toRow, toCol)) {
+	if(!pieces[fromRow][fromCol].checkMove(*this, fromRow, fromCol, toRow, toCol)) {
 		printf("Error; invalid move!\n");
 		return false;
 	} else {
-		pieces[fromRow][fromCol].move(this, fromRow, fromCol, toRow, toCol);
+		pieces[fromRow][fromCol].move(*this, fromRow, fromCol, toRow, toCol);
 	}
 	return true;
 }
 
 //Swap two pieces
 void ChessBoard::swap(int fromRow, int fromCol, int toRow, int toCol) {
-	Piece temp = &pieces[toRow][toCol];
+	Piece temp = pieces[toRow][toCol];
 	pieces[toRow][toCol] = pieces[fromRow][fromCol];
 	pieces[fromRow][fromCol] = temp;
 }
 
 //Determine if a square is threatened by another piece (i.e. it could move there next turn)
 side_t ChessBoard::isThreatened(int row, int col) {
-	side_t threatenedSide = Piece::NEITHER;
+	side_t threatenedSide = NEITHER;
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j < 8; j++) {
-			if(pieces[i][j].checkMove(pieces, i, j, row, col, true)) {
-				if(threatenedSide == Piece::NEITHER) {
+			if(pieces[i][j].checkMove(*this, i, j, row, col)) {	//TODO: Assume square is threatened?
+				if(threatenedSide == NEITHER) {
 					threatenedSide = pieces[i][j].getSide();
 				} else if(threatenedSide != pieces[i][j].getSide()) {
-					return Pieces::BOTH;
+					return BOTH;
 				}
 			}
 		}
