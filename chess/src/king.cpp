@@ -26,7 +26,7 @@ King::~King() {
 //Functions
 bool King::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	//Out of bounds
-	if(fromRow < 0 || fromRow > 8 || fromCol < 0 || fromCol > 8 || toRow < 0 || toRow > 8 || toCol < 0 || toCol > 8) {
+	if(fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 || toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
 		return false;
 	}
 
@@ -60,11 +60,11 @@ bool King::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int
 	//If castling, rook must not have moved either
 	if(isCastling) {
 		if(fromCol < toCol) {
-			if(board.getPieces()[fromRow][0].getType() != ROOK || board.getPieces()[fromRow][0].getMoved()) {
+			if(board.getPiece(fromRow, 0).getType() != ROOK || board.getPiece(fromRow, 0).getMoved()) {
 				return false;
 			}
 		} else {
-			if(board.getPieces()[fromRow][0].getType() != ROOK || board.getPieces()[fromRow][7].getMoved()) {
+			if(board.getPiece(fromRow, 0).getType() != ROOK || board.getPiece(fromRow, 7).getMoved()) {
 				return false;
 			}
 		}
@@ -83,10 +83,10 @@ bool King::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCo
 	board.swap(fromRow, fromCol, toRow, toCol);
 	if(isCastling) {
 		if(fromCol < toCol) {
-			board.getPieces()[fromRow][0].setMoved();
+			board.getPiece(fromRow, 0).setMoved();
 			board.swap(fromRow, 0, fromCol, fromCol + 1);
 		} else {
-			board.getPieces()[fromRow][7].setMoved();
+			board.getPiece(fromRow, 7).setMoved();
 			board.swap(fromRow, 7, fromCol, fromCol - 1);
 		}
 	}

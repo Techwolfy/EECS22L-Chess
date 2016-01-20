@@ -7,24 +7,25 @@
 #include "king.hpp"
 
 //Constructor
-ChessBoard::ChessBoard() : pieces{
-							{Rook(BLACK), Knight(BLACK), Bishop(BLACK), King(BLACK), Queen(BLACK), Bishop(BLACK), Knight(BLACK), Rook(BLACK)},
-							{Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK)},
-							{Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()},
-							{Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()},
-							{Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()},
-							{Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()},
-							{Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE)},
-							{Rook(WHITE), Knight(WHITE), Bishop(WHITE), Queen(WHITE), King(WHITE), Bishop(WHITE), Knight(WHITE), Rook(WHITE)}
-						   }
-{
-
+ChessBoard::ChessBoard() {
+	pieces = new Piece *[8];
+	pieces[0] = new Piece[8] {Rook(BLACK), Knight(BLACK), Bishop(BLACK), King(BLACK), Queen(BLACK), Bishop(BLACK), Knight(BLACK), Rook(BLACK)};
+	pieces[1] = new Piece[8] {Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK)};
+	pieces[2] = new Piece[8] {Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()};
+	pieces[3] = new Piece[8] {Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()};
+	pieces[4] = new Piece[8] {Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()};
+	pieces[5] = new Piece[8] {Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()};
+	pieces[6] = new Piece[8] {Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE)};
+	pieces[7] = new Piece[8] {Rook(WHITE), Knight(WHITE), Bishop(WHITE), Queen(WHITE), King(WHITE), Bishop(WHITE), Knight(WHITE), Rook(WHITE)};
 }
 
 
 //Destructor
 ChessBoard::~ChessBoard() {
-
+	for(int i = 0; i <= 7; i++) {
+		delete[] pieces[i];
+	}
+	delete[] pieces;
 }
 
 //Functions
@@ -55,8 +56,13 @@ void ChessBoard::display() {
 	printf("\n");
 }
 
-Piece (&ChessBoard::getPieces())[8][8] {	//Returns an 8x8 array; ugly syntax
-	return pieces;
+Piece ChessBoard::getPiece(int row, int col) {
+	//FIXME: Segfaults if out of range
+	//if(row < 0 || row > 7 || col < 0 || col > 7) {
+	//	return NULL;
+	//} else {
+		return pieces[row][col];
+	//}
 }
 
 //Determine if the game is over

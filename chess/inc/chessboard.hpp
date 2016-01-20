@@ -16,7 +16,7 @@ public:
 
 	//Functions
 	void display();
-	Piece (&getPieces())[8][8];
+	Piece getPiece(int row, int col);
 	side_t getWinner();
 	bool move(int fromRow, int fromCol, int toRow, int toCol);
 	void swap(int fromRow, int fromCol, int toRow, int toCol);
@@ -24,7 +24,7 @@ public:
 
 private:
 	//Variables
-	Piece pieces[8][8];
+	Piece **pieces;
 };
 
 #endif //CHESSBOARD_H
