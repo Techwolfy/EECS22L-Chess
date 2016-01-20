@@ -53,7 +53,7 @@ void ChessBoard::display() {
 	printf("\n");
 }
 
-Piece** ChessBoard::getPieces() {
+Piece (&ChessBoard::getPieces())[8][8] {	//Returns an 8x8 array; ugly syntax
 	return pieces;
 }
 

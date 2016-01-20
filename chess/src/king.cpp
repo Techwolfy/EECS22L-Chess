@@ -60,11 +60,11 @@ bool King::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int
 	//If castling, rook must not have moved either
 	if(isCastling) {
 		if(fromCol < toCol) {
-			if(board.getPieces()[fromRow][0].getType != ROOK || board.getPieces()[fromRow][0].getMoved()) {
+			if(board.getPieces()[fromRow][0].getType() != ROOK || board.getPieces()[fromRow][0].getMoved()) {
 				return false;
 			}
 		} else {
-			if(board.getPieces()[fromRow][0].getType != ROOK || board.getPieces()[fromRow][7].getMoved()) {
+			if(board.getPieces()[fromRow][0].getType() != ROOK || board.getPieces()[fromRow][7].getMoved()) {
 				return false;
 			}
 		}

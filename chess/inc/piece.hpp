@@ -2,7 +2,7 @@
 #define PIECE_H
 
 //Includes
-#include "chessboard.hpp"
+//#include "chessboard.hpp"
 #include "types.hpp"
 
 //Forward declaration of ChessBoard
