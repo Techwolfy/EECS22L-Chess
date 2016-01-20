@@ -19,4 +19,4 @@ chess: $(OBJS)
 .PHONY: clean
 clean:
 	@echo "Cleaning up build files..."
-	rm -r *.o chess
+	rm -r *.o *.d chess
