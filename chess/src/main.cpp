@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
 	int fromRow = 0, fromCol = 0, toRow = 0, toCol = 0;
 
 	while(true) {
-		while(board.getWinner() == NONE) {
+		while(board.getWinner() == NEITHER) {
 			board.display();
 
 			player.getMove(&fromRow, &fromCol, &toRow, &toCol);
