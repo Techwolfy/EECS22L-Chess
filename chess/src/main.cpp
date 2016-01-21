@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "chessboard.hpp"
 #include "player.hpp"
 #include "types.hpp"
@@ -28,8 +29,10 @@ int main(int argc, char *argv[]) {
 		//Game over
 		if(board.getWinner() == WHITE) {
 			//White won
+			printf("White won!\n");
 		} else if(board.getWinner() == BLACK) {
 			//Black won
+			printf("Black won!\n");
 		}
 
 		//Prompt for input (new game or quit)

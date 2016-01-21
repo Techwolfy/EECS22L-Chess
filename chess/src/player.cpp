@@ -17,17 +17,17 @@ Player::~Player() {
 //Functions
 void Player::getMove(int *fromRow, int *fromCol, int *toRow, int *toCol) {
 	printf("Enter a move (algebraic format; e.g. b2b3): ");
-	scanf("%c%d%c%d", *fromCol, *fromRow, *toCol, *toRow);
+	scanf("%c%d%c%d", fromCol, fromRow, toCol, toRow);
 
 	//ASCII uppercase to lowercase
-	if(*fromCol < 72) {
-		*fromCol -= 32;
+	if(*fromCol > 'H') {
+		*fromCol -= 'a' - 'A';
 	}
-	if(*toCol < 72) {
-		*toCol -= 32;
+	if(*toCol > 'H') {
+		*toCol -= 'a' - 'A';
 	}
 
 	//ASCII number to int
-	*fromCol -= 48;
-	*toCol -= 48;
+	*fromCol -= 'A';
+	*toCol -= 'A';
 }
