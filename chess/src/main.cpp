@@ -15,11 +15,14 @@ int main(int argc, char *argv[]) {
 	scanf("%c", &playerSide);
 	if(playerSide == 'w') {
 		player.setSide(WHITE);
+		ai.setSide(BLACK);
 	} else if(playerSide == 'b') {
 		player.setSide(BLACK);
+		ai.setSide(WHITE);
 	} else {
 		printf("Invalid input! Defaulted to White.\n");
 		player.setSide(WHITE);
+		ai.setSide(BLACK);
 	}
 
 	while(true) {
