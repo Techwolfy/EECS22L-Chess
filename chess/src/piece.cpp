@@ -9,7 +9,7 @@ Piece::Piece() : type(NONE),
 				 side(NEITHER),
 				 display(" "),
 				 hasMoved(true),
-				 isCaptured(false) {
+				 isCaptured(true) {
 
 }
 

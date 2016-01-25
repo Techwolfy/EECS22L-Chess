@@ -18,7 +18,7 @@ public:
 	void display();
 	Piece getPiece(int row, int col);
 	side_t getWinner();
-	bool move(int fromRow, int fromCol, int toRow, int toCol);
+	bool move(side_t side, int fromRow, int fromCol, int toRow, int toCol);
 	void swap(int fromRow, int fromCol, int toRow, int toCol);
 	side_t isThreatened(int row, int col);
 
