@@ -23,6 +23,7 @@ public:
 	const char* getDisplayChar();
 	bool getMoved();
 	void setMoved();
+	void setCaptured();
 	virtual bool checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
 	virtual bool move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
 	virtual bool revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
@@ -34,6 +35,7 @@ protected:
 	side_t side;
 	const char *display;
 	bool hasMoved;
+	bool isCaptured;
 };
 
 #endif //PIECE_H

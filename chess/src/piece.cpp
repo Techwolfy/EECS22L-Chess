@@ -8,7 +8,8 @@
 Piece::Piece() : type(NONE),
 				 side(NEITHER),
 				 display(" "),
-				 hasMoved(true) {
+				 hasMoved(true),
+				 isCaptured(false) {
 
 }
 
@@ -30,7 +31,11 @@ side_t Piece::getSide() {
 
 //Return character to display for chess piece
 const char* Piece::getDisplayChar() {
-	return display;
+	if(!isCaptured) {
+		return display;
+	} else {
+		return " ";
+	}
 }
 
 //Check if the piece has moved
@@ -42,6 +47,10 @@ bool Piece::getMoved() {
 //Set the piece moved flag, for use when moved by another piece
 void Piece::setMoved() {
 	hasMoved = true;
+}
+
+void Piece::setCaptured() {
+	isCaptured = true;
 }
 
 //Check if a move is valid
