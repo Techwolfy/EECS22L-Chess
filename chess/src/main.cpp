@@ -28,18 +28,16 @@ int main(int argc, char *argv[]) {
 	while(true) {
 		while(board.getWinner() == NEITHER) {
 			if(playerMove) {
-				player.getMove(board, &fromRow, &fromCol, &toRow, &toCol);
-				while(board.move(player.getSide(), fromRow, fromCol, toRow, toCol) == false) {
-					//Invalid move, try again
+				//Loops on invalid move
+				do {
 					player.getMove(board, &fromRow, &fromCol, &toRow, &toCol);
-				}
+				} while(board.move(player.getSide(), fromRow, fromCol, toRow, toCol) == false);
 				playerMove = false;
 			} else {
-				ai.getMove(board, &fromRow, &fromCol, &toRow, &toCol);
-				while(board.move(player.getSide(), fromRow, fromCol, toRow, toCol) == false) {
-					//Invalid move, try again (should never happen for AI...)
+				//Loops on invalid move
+				do {
 					ai.getMove(board, &fromRow, &fromCol, &toRow, &toCol);
-				}
+				} while(board.move(ai.getSide(), fromRow, fromCol, toRow, toCol) == false);
 				playerMove = true;
 			}
 		}
