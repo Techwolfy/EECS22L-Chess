@@ -61,8 +61,15 @@ bool Piece::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, in
 
 //Make a move if it is valid
 bool Piece::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
-	//Blank piece object
-	return false;
+	if(checkMove(board, fromRow, fromCol, toRow,toCol)) {
+		board.getPiece(toRow, toCol).setCaptured();
+		board.swap(fromRow, fromCol, toRow, toCol);
+		hasMoved = true;
+		return true;
+	} else {
+		//Invalid move
+		return false;
+	}
 }
 
 //Revert the previous move

@@ -5,6 +5,11 @@
 #include "chessboard.hpp"
 #include "piece.hpp"
 #include "king.hpp"
+#include "queen.hpp"
+#include "rook.hpp"
+#include "knight.hpp"
+#include "bishop.hpp"
+#include "pawn.hpp"
 
 //Constructor
 ChessBoard::ChessBoard() {

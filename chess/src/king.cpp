@@ -76,6 +76,10 @@ bool King::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int
 }
 
 bool King::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
+	if(!checkMove(board, fromRow, fromCol, toRow, toCol)) {
+		return false;
+	}
+
 	bool isCastling = false;
 	if(fromRow == toRow && abs(fromCol - toCol) == 2) {
 		isCastling = true;
