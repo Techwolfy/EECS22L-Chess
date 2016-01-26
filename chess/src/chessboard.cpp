@@ -64,12 +64,11 @@ void ChessBoard::display() {
 }
 
 Piece* ChessBoard::getPiece(int row, int col) {
-	//FIXME: Segfaults if out of range
-	//if(row < 0 || row > 7 || col < 0 || col > 7) {
-	//	return NULL;
-	//} else {
+	if(row < 0 || row > 7 || col < 0 || col > 7) {
+		return NULL;
+	} else {
 		return pieces[row][col];
-	//}
+	}
 }
 
 //Determine if the game is over
