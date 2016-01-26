@@ -18,7 +18,6 @@ public:
 	//Functions
 	bool checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
 	bool revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
-
 };
 
 #endif //QUEEN_H
