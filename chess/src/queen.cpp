@@ -1,6 +1,7 @@
 //Queen.cpp
 
 //Includes
+#include <stdlib.h>
 #include "piece.hpp"
 #include "chessboard.hpp"
 #include "queen.hpp"
