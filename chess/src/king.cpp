@@ -37,7 +37,8 @@ bool King::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int
 	}
 
 	//New square must not be threatened (king can't move into check)
-	side_t threat = board.isThreatened(toRow, toCol);
+	//FIXME: Don't call isThreatened from checkMove, causes infinite loop
+	/*side_t threat = board.isThreatened(toRow, toCol);
 	if(threat != NEITHER && threat != side) {
 		return false;
 	} else {
@@ -51,16 +52,16 @@ bool King::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int
 				return false;
 			}
 		}
-	}
+	}*/
 
 	//If castling, rook must not have moved either
 	if(isCastling) {
 		if(fromCol < toCol) {
-			if(board.getPiece(fromRow, 0).getType() != ROOK || board.getPiece(fromRow, 0).getMoved()) {
+			if(board.getPiece(fromRow, 0)->getType() != ROOK || board.getPiece(fromRow, 0)->getMoved()) {
 				return false;
 			}
 		} else {
-			if(board.getPiece(fromRow, 0).getType() != ROOK || board.getPiece(fromRow, 7).getMoved()) {
+			if(board.getPiece(fromRow, 0)->getType() != ROOK || board.getPiece(fromRow, 7)->getMoved()) {
 				return false;
 			}
 		}
@@ -80,15 +81,15 @@ bool King::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCo
 		isCastling = true;
 	}
 
-	board.getPiece(toRow, toCol).setCaptured();
+	board.getPiece(toRow, toCol)->setCaptured();
 	board.swap(fromRow, fromCol, toRow, toCol);
 	if(isCastling) {
 		if(fromCol < toCol) {
-			board.getPiece(fromRow, 0).setMoved();
-			board.getPiece(fromRow, 0).setCaptured();
+			board.getPiece(fromRow, 0)->setMoved();
+			board.getPiece(fromRow, 0)->setCaptured();
 			board.swap(fromRow, 0, fromCol, fromCol + 1);
 		} else {
-			board.getPiece(fromRow, 7).setCaptured();
+			board.getPiece(fromRow, 7)->setCaptured();
 			board.swap(fromRow, 7, fromCol, fromCol - 1);
 		}
 	}

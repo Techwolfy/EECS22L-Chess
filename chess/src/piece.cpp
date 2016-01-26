@@ -49,6 +49,10 @@ void Piece::setMoved() {
 	hasMoved = true;
 }
 
+bool Piece::getCaptured() {
+	return isCaptured;
+}
+
 void Piece::setCaptured() {
 	isCaptured = true;
 }
@@ -62,7 +66,7 @@ bool Piece::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, in
 //Make a move if it is valid
 bool Piece::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	if(checkMove(board, fromRow, fromCol, toRow,toCol)) {
-		board.getPiece(toRow, toCol).setCaptured();
+		board.getPiece(toRow, toCol)->setCaptured();
 		board.swap(fromRow, fromCol, toRow, toCol);
 		hasMoved = true;
 		return true;

@@ -35,8 +35,8 @@ bool Knight::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, i
 		return true;
 	}
 
-	//All checks have passed
-	return true;
+	//All checks have failed
+	return false;
 }
 
 bool Knight::revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {

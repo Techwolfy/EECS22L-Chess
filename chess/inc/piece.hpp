@@ -15,7 +15,7 @@ public:
 	Piece();
 
 	//Destructor
-	~Piece();
+	virtual ~Piece();
 
 	//Functions
 	chess_t getType();
@@ -23,6 +23,7 @@ public:
 	const char* getDisplayChar();
 	bool getMoved();
 	void setMoved();
+	bool getCaptured();
 	void setCaptured();
 	virtual bool checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
 	virtual bool move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);

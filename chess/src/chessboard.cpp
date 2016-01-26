@@ -12,25 +12,27 @@
 #include "pawn.hpp"
 
 //Constructor
-ChessBoard::ChessBoard() {
-	pieces = new Piece *[8];
-	pieces[0] = new Piece[8] {Rook(BLACK), Knight(BLACK), Bishop(BLACK), King(BLACK), Queen(BLACK), Bishop(BLACK), Knight(BLACK), Rook(BLACK)};
-	pieces[1] = new Piece[8] {Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK), Pawn(BLACK)};
-	pieces[2] = new Piece[8] {Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()};
-	pieces[3] = new Piece[8] {Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()};
-	pieces[4] = new Piece[8] {Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()};
-	pieces[5] = new Piece[8] {Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece(), Piece()};
-	pieces[6] = new Piece[8] {Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE), Pawn(WHITE)};
-	pieces[7] = new Piece[8] {Rook(WHITE), Knight(WHITE), Bishop(WHITE), Queen(WHITE), King(WHITE), Bishop(WHITE), Knight(WHITE), Rook(WHITE)};
+ChessBoard::ChessBoard() : pieces{
+								{new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new King(BLACK), new Queen(BLACK), new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK)},
+								{new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK)},
+								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
+								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
+								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
+								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
+								{new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE)},
+								{new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE), new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE)}
+							} {
+
 }
 
 
 //Destructor
 ChessBoard::~ChessBoard() {
 	for(int i = 0; i <= 7; i++) {
-		delete[] pieces[i];
+		for(int j = 0; j <= 7; i++) {
+			delete pieces[i][j];
+		}
 	}
-	delete[] pieces;
 }
 
 //Functions
@@ -47,7 +49,7 @@ void ChessBoard::display() {
 	for(int i = 7; i >= 0; i--) {
 		printf("%d║│", i);
 		for(int j = 0; j < 8; j++) {
-			printf(" %s │", pieces[i][j].getDisplayChar());
+			printf(" %s │", pieces[i][j]->getDisplayChar());
 		}
 		printf("║ \n");
 		if(i > 0) {
@@ -61,7 +63,7 @@ void ChessBoard::display() {
 	printf("\n");
 }
 
-Piece ChessBoard::getPiece(int row, int col) {
+Piece* ChessBoard::getPiece(int row, int col) {
 	//FIXME: Segfaults if out of range
 	//if(row < 0 || row > 7 || col < 0 || col > 7) {
 	//	return NULL;
@@ -74,8 +76,8 @@ Piece ChessBoard::getPiece(int row, int col) {
 side_t ChessBoard::getWinner() {
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j < 8; j++) {
-			if(pieces[i][j].checkmate(*this, i, j)) {
-				return pieces[i][j].getSide();
+			if(pieces[i][j]->checkmate(*this, i, j)) {
+				return pieces[i][j]->getSide();
 			}
 		}
 	}
@@ -91,19 +93,19 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 	}
 
 	//Move validation
-	if(pieces[fromRow][fromCol].getSide() != side || !pieces[fromRow][fromCol].checkMove(*this, fromRow, fromCol, toRow, toCol)) {
+	if(pieces[fromRow][fromCol]->getSide() != side || pieces[fromRow][fromCol]->getCaptured() || !pieces[fromRow][fromCol]->checkMove(*this, fromRow, fromCol, toRow, toCol)) {
 		printf("Error; invalid move!\n");
 		return false;
 	} else {
 		//Move the piece
-		pieces[fromRow][fromCol].move(*this, fromRow, fromCol, toRow, toCol);
+		pieces[fromRow][fromCol]->move(*this, fromRow, fromCol, toRow, toCol);
 	}
 	return true;
 }
 
 //Swap two pieces
 void ChessBoard::swap(int fromRow, int fromCol, int toRow, int toCol) {
-	Piece temp = pieces[toRow][toCol];
+	Piece *temp = pieces[toRow][toCol];
 	pieces[toRow][toCol] = pieces[fromRow][fromCol];
 	pieces[fromRow][fromCol] = temp;
 }
@@ -113,10 +115,10 @@ side_t ChessBoard::isThreatened(int row, int col) {
 	side_t threatenedSide = NEITHER;
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j < 8; j++) {
-			if(pieces[i][j].checkMove(*this, i, j, row, col)) {	//TODO: Assume square is threatened?
+			if(pieces[i][j]->checkMove(*this, i, j, row, col)) {	//TODO: Assume square is threatened?
 				if(threatenedSide == NEITHER) {
-					threatenedSide = pieces[i][j].getSide();
-				} else if(threatenedSide != pieces[i][j].getSide()) {
+					threatenedSide = pieces[i][j]->getSide();
+				} else if(threatenedSide != pieces[i][j]->getSide()) {
 					return BOTH;
 				}
 			}
