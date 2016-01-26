@@ -11,6 +11,7 @@ Bishop::Bishop(side_t _side) {
 	type = BISHOP;
 	side = _side;
 	hasMoved = false;
+	isCaptured = false;
 	if(_side == WHITE) {
 		display = "♝";
 	} else {
