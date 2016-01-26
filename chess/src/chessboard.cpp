@@ -8,19 +8,19 @@
 #include "queen.hpp"
 #include "rook.hpp"
 #include "knight.hpp"
-#include "bishop.hpp"
-#include "pawn.hpp"
+//#include "bishop.hpp"
+//#include "pawn.hpp"
 
 //Constructor
 ChessBoard::ChessBoard() : pieces{
-								{new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new King(BLACK), new Queen(BLACK), new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK)},
-								{new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK)},
+								{new Rook(BLACK), new Knight(BLACK), new Knight(BLACK), new King(BLACK), new Queen(BLACK), new Knight(BLACK), new Knight(BLACK), new Rook(BLACK)},
+								{new Knight(BLACK), new Knight(BLACK), new Knight(BLACK), new Knight(BLACK), new Knight(BLACK), new Knight(BLACK), new Knight(BLACK), new Knight(BLACK)},
 								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
 								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
 								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
 								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
-								{new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE)},
-								{new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE), new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE)}
+								{new Knight(WHITE), new Knight(WHITE), new Knight(WHITE), new Knight(WHITE), new Knight(WHITE), new Knight(WHITE), new Knight(WHITE), new Knight(WHITE)},
+								{new Rook(WHITE), new Knight(WHITE), new Knight(WHITE), new Queen(WHITE), new King(WHITE), new Knight(WHITE), new Knight(WHITE), new Rook(WHITE)}
 							} {
 
 }
@@ -28,8 +28,8 @@ ChessBoard::ChessBoard() : pieces{
 
 //Destructor
 ChessBoard::~ChessBoard() {
-	for(int i = 0; i <= 7; i++) {
-		for(int j = 0; j <= 7; i++) {
+	for(int i = 0; i < 8; i++) {
+		for(int j = 0; j < 8; i++) {
 			delete pieces[i][j];
 		}
 	}
