@@ -8,7 +8,7 @@
 
 //Constructor
 Queen::Queen(side_t _side) {
-	type = Queen;
+	type = QUEEN;
 	side = _side;
 	hasMoved = false;
 	isCaptured = false;
