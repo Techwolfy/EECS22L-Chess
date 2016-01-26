@@ -37,9 +37,9 @@ ChessBoard::~ChessBoard() {
 //Display the chess board on the screen
 void ChessBoard::display() {
 	//Standard terminal is 80x25; clear screen
-	for(int i = 0; i <= 25; i++) {
+	//for(int i = 0; i <= 25; i++) {
 		printf("\n");
-	}
+	//}
 
 	printf(" ╔═════════════════════════════════╗ \n");
 	printf(" ║┌───┬───┬───┬───┬───┬───┬───┬───┐║ \n");
@@ -84,10 +84,18 @@ side_t ChessBoard::getWinner() {
 
 //Move a piece
 bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
+	//Bounds checking
+	if(fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 || toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
+		printf("Error; move is out of bounds!\n");
+		return false;
+	}
+
+	//Move validation
 	if(pieces[fromRow][fromCol].getSide() != side || !pieces[fromRow][fromCol].checkMove(*this, fromRow, fromCol, toRow, toCol)) {
 		printf("Error; invalid move!\n");
 		return false;
 	} else {
+		//Move the piece
 		pieces[fromRow][fromCol].move(*this, fromRow, fromCol, toRow, toCol);
 	}
 	return true;

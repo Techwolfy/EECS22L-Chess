@@ -26,11 +26,6 @@ King::~King() {
 
 //Functions
 bool King::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
-	//Out of bounds
-	if(fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 || toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
-		return false;
-	}
-
 	bool isCastling = false;
 	//Only one square away, unless castling
 	if(abs(fromRow - toRow) > 1 || abs(fromCol - toCol) > 1) {

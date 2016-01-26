@@ -20,19 +20,23 @@ Player::~Player() {
 void Player::getMove(ChessBoard &board, int *fromRow, int *fromCol, int *toRow, int *toCol) {
 	board.display();
 	printf("Enter a move (algebraic format; e.g. b2b3): ");
-	scanf("%c%d%c%d", fromCol, fromRow, toCol, toRow);
+	scanf("%d%d%d%d", fromCol, fromRow, toCol, toRow);
 
-	//ASCII uppercase to lowercase
-	if(*fromCol > 'H') {
-		*fromCol -= 'a' - 'A';
+	//ASCII uppercase to lowercase, letter to int
+	if(*fromCol >= 'a') {
+		*fromCol -= 'a';
+	} else {
+		*fromCol -= 'A';
 	}
-	if(*toCol > 'H') {
-		*toCol -= 'a' - 'A';
+	if(*toCol >= 'a') {
+		*toCol -= 'a';
+	} else {
+		*toCol -= 'A';
 	}
 
 	//ASCII number to int
-	*fromCol -= 'A';
-	*toCol -= 'A';
+	*fromRow -= '0';
+	*toRow -= '0';
 }
 
 side_t Player::getSide() {
