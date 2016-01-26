@@ -16,13 +16,16 @@ int main(int argc, char *argv[]) {
 	if(playerSide == 'w') {
 		player.setSide(WHITE);
 		ai.setSide(BLACK);
+		playerMove = true;
 	} else if(playerSide == 'b') {
 		player.setSide(BLACK);
 		ai.setSide(WHITE);
+		playerMove = false;
 	} else {
 		printf("Invalid input! Defaulted to White.\n");
 		player.setSide(WHITE);
 		ai.setSide(BLACK);
+		playerMove = true;
 	}
 
 	while(true) {
