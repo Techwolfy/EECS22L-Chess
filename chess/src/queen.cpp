@@ -25,11 +25,6 @@ Queen::~Queen() {
 
 //Functions
 bool Queen::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
-	//No moving in place
-	if(toRow == fromRow && toCol == fromCol) {
-		return false;
-	}
-
 	//Diagonal, same column, or same row movement
 	if(abs(toCol - fromCol) == abs(toRow - fromRow) || toRow == fromRow || toCol == fromCol) {
 		//TODO: Check if there are other pieces in the way!

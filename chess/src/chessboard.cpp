@@ -92,6 +92,12 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 		return false;
 	}
 
+	//No moving in place
+	if(fromRow == fromCol && toRow == toCol) {
+		printf("Error: no move made!\n");
+		return false;
+	}
+
 	//Move validation
 	if(pieces[fromRow][fromCol]->getSide() != side || pieces[fromRow][fromCol]->getCaptured() || !pieces[fromRow][fromCol]->checkMove(*this, fromRow, fromCol, toRow, toCol)) {
 		printf("Error; invalid move!\n");

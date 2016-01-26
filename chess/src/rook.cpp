@@ -25,11 +25,6 @@ Rook::~Rook() {
 
 //Functions
 bool Rook::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
-	//No moving in place
-	if(toRow == fromRow && toCol == fromCol) {
-		return false;
-	}
-
 	//Movement within the same row or column
 	if(toCol == fromCol || toRow == fromRow) {
 		//TODO: Check if there are other pieces in the way!
