@@ -19,7 +19,7 @@ Player::~Player() {
 //Functions
 void Player::getMove(ChessBoard &board, int *fromRow, int *fromCol, int *toRow, int *toCol) {
 	board.display();
-	printf("Enter a move (algebraic format; e.g. b2b3): ");
+	printf("%s, enter a move (algebraic format; e.g. b2b3): ", side == WHITE ? "White" : "Black");
 
 	char fromColIn = 0, toColIn = 0; //Used only to read in row identifier characters
 	scanf(" %c%d%c%d", &fromColIn, fromRow, &toColIn, toRow);
