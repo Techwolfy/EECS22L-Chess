@@ -13,7 +13,7 @@
 
 //Constructor
 ChessBoard::ChessBoard() : pieces{
-								{new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new King(WHITE), new Queen(WHITE), new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE)},
+								{new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE), new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE)},
 								{new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE)},
 								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
 								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
