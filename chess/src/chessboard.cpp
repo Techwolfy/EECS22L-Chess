@@ -101,7 +101,13 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 
 	//No moving in place
 	if(fromRow == fromCol && toRow == toCol) {
-		printf("Error: no move made!\n");
+		printf("Error; no move made!\n");
+		return false;
+	}
+
+	//No moving on top of your own pieces
+	if(!pieces[toRow][toCol]->isCaptured() && pieces[fromRow][fromCol]->getSide() == pieces[toRow][toCol]->getSide()) {
+		printf("Error; capturing your own pieces is not allowed!");
 		return false;
 	}
 
