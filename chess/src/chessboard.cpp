@@ -21,8 +21,12 @@ ChessBoard::ChessBoard() : pieces{
 								{new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece(), new Piece()},
 								{new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK)},
 								{new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new Queen(BLACK), new King(BLACK), new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK)}
-							} {
-
+							},
+							logFile(NULL) {
+	logFile = fopen("chess.log",  "w");
+	if(logFile == NULL) {
+		printf("Failed to open log file! No log file will be used for this game.\n");
+	}
 }
 
 //Destructor
@@ -31,6 +35,10 @@ ChessBoard::~ChessBoard() {
 		for(int j = 0; j < 8; j++) {
 			delete pieces[i][j];
 		}
+	}
+
+	if(logFile != NULL) {
+		fclose(logFile);
 	}
 }
 
@@ -103,6 +111,12 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 	} else {
 		//Move the piece
 		pieces[fromRow][fromCol]->move(*this, fromRow, fromCol, toRow, toCol);
+
+		//FIXME: Preliminary log
+		if(logFile != NULL) {
+			fprintf(logFile, "%c%d %c%d\n", fromCol + 'a', fromRow, toCol + 'a', toRow);
+			fflush(logFile);
+		}
 	}
 	return true;
 }

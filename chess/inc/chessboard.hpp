@@ -2,6 +2,7 @@
 #define CHESSBOARD_H
 
 //Includes
+#include <stdio.h>
 #include "piece.hpp"
 #include "types.hpp"
 
@@ -26,6 +27,7 @@ public:
 private:
 	//Variables
 	Piece *pieces[8][8];
+	FILE *logFile;
 };
 
 #endif //CHESSBOARD_H
