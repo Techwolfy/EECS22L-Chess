@@ -23,6 +23,7 @@ ChessBoard::ChessBoard() : pieces{
 								{new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new Queen(BLACK), new King(BLACK), new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK)}
 							},
 							logFile(NULL) {
+
 	logFile = fopen("chess.log",  "w");
 	if(logFile == NULL) {
 		printf("Failed to open log file! No log file will be used for this game.\n");
