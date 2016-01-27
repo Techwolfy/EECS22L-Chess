@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 	printf("2. Player vs. AI\n");
 	printf("3. AI vs. AI\n");
 	printf("Choose a game mode: ");
-	scanf("%d", &playermode);
+	scanf("%d", &gameMode);
 
 	switch(gameMode) {
 		case 1:
@@ -62,13 +62,13 @@ int main(int argc, char *argv[]) {
 			//Loops on invalid move
 			do {
 				player->getMove(board, &fromRow, &fromCol, &toRow, &toCol);
-			} while(board.move(player.getSide(), fromRow, fromCol, toRow, toCol) == false);
+			} while(board.move(player->getSide(), fromRow, fromCol, toRow, toCol) == false);
 			playerMove = false;
 		} else {
 			//Loops on invalid move
 			do {
 				ai->getMove(board, &fromRow, &fromCol, &toRow, &toCol);
-			} while(board.move(ai.getSide(), fromRow, fromCol, toRow, toCol) == false);
+			} while(board.move(ai->getSide(), fromRow, fromCol, toRow, toCol) == false);
 			playerMove = true;
 		}
 	}
