@@ -12,7 +12,7 @@ public:
 	Player();
 
 	//Destructor
-	~Player();
+	virtual ~Player();
 
 	//Functions
 	side_t getSide();
