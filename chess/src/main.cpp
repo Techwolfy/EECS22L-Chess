@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 	printf("2. Player vs. AI\n");
 	printf("3. AI vs. AI\n");
 	printf("Choose a game mode: ");
-	scanf("%d", &gameMode);
+	scanf(" %d", &gameMode);
 
 	switch(gameMode) {
 		case 1:
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 
 	if(gameMode == 1 || gameMode == 2) {
 		printf("Player 1, choose a side (w for white, b for black): ");
-		scanf("%c", &playerSide);
+		scanf(" %c", &playerSide);
 	} else {
 		playerSide = 'w';
 	}
