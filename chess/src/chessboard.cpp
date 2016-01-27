@@ -152,7 +152,32 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 	}
 	return true;
 }
-
+//Pawn promotion
+void ChessBoard::promotion(int toRow, int toCol, side_t side){
+  char userInput;
+  printf("Promote pawn to: \n b - Bishop\n k - Knight\n q - Queen\n r - Rook\nEnter letter: \n");
+  scanf(" %c", &userInput);
+  if(userInput == 'b'){
+    delete pieces[toRow][toCol];
+    pieces[toRow][toCol] = new Bishop(side);
+  }
+  else if(userInput == 'k'){
+    delete pieces[toRow][toCol];
+    pieces[toRow][toCol] = new Knight(side);
+  }
+  else if(userInput == 'q'){
+    delete pieces[toRow][toCol];
+    pieces[toRow][toCol] = new Queen(side);
+  }
+  else if(userInput == 'r'){
+    delete pieces[toRow][toCol];
+    pieces[toRow][toCol] = new Rook(side);
+    }
+  else {
+    delete pieces[toRow][toCol];
+    pieces[toRow][toCol] = new Queen(side);
+  }
+}
 //Swap two pieces
 void ChessBoard::swap(int fromRow, int fromCol, int toRow, int toCol) {
 	Piece *temp = pieces[toRow][toCol];
