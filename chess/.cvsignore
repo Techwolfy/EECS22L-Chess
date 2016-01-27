@@ -7,3 +7,9 @@ chess
 
 #Game log files
 *.log
+
+#Build directory
+build/
+
+#Binary directory
+bin/
