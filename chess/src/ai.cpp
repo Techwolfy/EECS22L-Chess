@@ -40,7 +40,7 @@ void AI::getMove(ChessBoard &board, int *fromRow, int *fromCol, int *toRow, int 
 	if(threat != NEITHER && threat != side) {
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
-					if(board.getPiece(*fromRow,*fromCol)->checkMove(board, *fromRow, *fromCol, i, j)) {
+					if(board.checkMove(side, *fromRow, *fromCol, i, j)) {
 						*toRow = i;
 						*toCol = j;
 						isKing1 = true;
