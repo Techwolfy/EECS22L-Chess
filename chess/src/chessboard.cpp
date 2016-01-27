@@ -91,8 +91,8 @@ side_t ChessBoard::getWinner() {
 	return NEITHER;
 }
 
-//Move a piece
-bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
+//Check if a move is possible
+bool ChessBoard::checkMove(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
 	//Bounds checking
 	if(fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 || toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
 		printf("Error; move is out of bounds!\n");
@@ -111,9 +111,33 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 		return false;
 	}
 
+	//No moving the opponent's pieces
+	if(pieces[fromRow][fromCol]->getSide() != side) {
+		printf("Error; you do not control that piece!\n");
+		return false;
+	}
+
+	//Make sure the piece exists
+	if(pieces[fromRow][fromCol]->getCaptured()) {
+		printf("Error; piece does not exist!\n");
+		return false;
+	}
+
 	//Move validation
-	if(pieces[fromRow][fromCol]->getSide() != side || pieces[fromRow][fromCol]->getCaptured() || !pieces[fromRow][fromCol]->checkMove(*this, fromRow, fromCol, toRow, toCol)) {
+	if(!pieces[fromRow][fromCol]->checkMove(*this, fromRow, fromCol, toRow, toCol)) {
 		printf("Error; invalid move!\n");
+		return false;
+	}
+
+	//All tests have passed
+	return true;
+}
+
+//Move a piece
+bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
+	//Move validation
+	if(!checkMove(side, fromRow, fromCol, toRow, toCol)) {
+		//Invalid move
 		return false;
 	} else {
 		//Move the piece
