@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include "chessboard.hpp"
 #include "player.hpp"
+#include "ai.hpp"
 #include "types.hpp"
 
 int main(int argc, char *argv[]) {
 	Player player;
-	Player ai;
+	AI ai;
 	ChessBoard board;
 	int fromRow = 0, fromCol = 0, toRow = 0, toCol = 0;
 	bool playerMove = true;
