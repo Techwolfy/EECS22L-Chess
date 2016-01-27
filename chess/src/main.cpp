@@ -43,48 +43,45 @@ int main(int argc, char *argv[]) {
 	}
 
 	if(playerSide == 'w' || playerSide == 'W') {
-		player.setSide(WHITE);
-		ai.setSide(BLACK);
+		player->setSide(WHITE);
+		ai->setSide(BLACK);
 		playerMove = true;
 	} else if(playerSide == 'b' || playerSide == 'B') {
-		player.setSide(BLACK);
-		ai.setSide(WHITE);
+		player->setSide(BLACK);
+		ai->setSide(WHITE);
 		playerMove = false;
 	} else {
 		printf("Invalid input! Defaulted to White.\n");
-		player.setSide(WHITE);
-		ai.setSide(BLACK);
+		player->setSide(WHITE);
+		ai->setSide(BLACK);
 		playerMove = true;
 	}
 
-	while(true) {
-		while(board.getWinner() == NEITHER) {
-			if(playerMove) {
-				//Loops on invalid move
-				do {
-					player.getMove(board, &fromRow, &fromCol, &toRow, &toCol);
-				} while(board.move(player.getSide(), fromRow, fromCol, toRow, toCol) == false);
-				playerMove = false;
-			} else {
-				//Loops on invalid move
-				do {
-					ai.getMove(board, &fromRow, &fromCol, &toRow, &toCol);
-				} while(board.move(ai.getSide(), fromRow, fromCol, toRow, toCol) == false);
-				playerMove = true;
-			}
+	while(board.getWinner() == NEITHER) {
+		if(playerMove) {
+			//Loops on invalid move
+			do {
+				player->getMove(board, &fromRow, &fromCol, &toRow, &toCol);
+			} while(board.move(player.getSide(), fromRow, fromCol, toRow, toCol) == false);
+			playerMove = false;
+		} else {
+			//Loops on invalid move
+			do {
+				ai->getMove(board, &fromRow, &fromCol, &toRow, &toCol);
+			} while(board.move(ai.getSide(), fromRow, fromCol, toRow, toCol) == false);
+			playerMove = true;
 		}
+	}
 
-		//Game over
-		if(board.getWinner() == WHITE) {
-			//White won
-			printf("White won!\n");
-		} else if(board.getWinner() == BLACK) {
-			//Black won
-			printf("Black won!\n");
-		}
-
-		//TODO: Prompt for input (new game or quit)
-		break;
+	//Game over
+	if(board.getWinner() == WHITE) {
+		//White won
+		board.display();
+		printf("White won!\n");
+	} else if(board.getWinner() == BLACK) {
+		//Black won
+		board.display();
+		printf("Black won!\n");
 	}
 
 	delete player;
