@@ -114,6 +114,7 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 		pieces[fromRow][fromCol]->move(*this, fromRow, fromCol, toRow, toCol);
 
 		//FIXME: Preliminary log
+		printf("%c%d %c%d\n", fromCol + 'a', fromRow, toCol + 'a', toRow);
 		if(logFile != NULL) {
 			fprintf(logFile, "%c%d %c%d\n", fromCol + 'a', fromRow, toCol + 'a', toRow);
 			fflush(logFile);
