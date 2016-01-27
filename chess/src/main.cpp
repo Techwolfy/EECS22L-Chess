@@ -13,8 +13,6 @@ int main(int argc, char *argv[]) {
 	char playerSide = 'w';
 	int gameMode = 0;
 
-	printf("Choose a side (w for white, b for black): ");
-	scanf("%c", &playerSide);
 	printf("Available game modes:\n");
 	printf("1. Player vs. Player\n");
 	printf("2. Player vs. AI\n");
@@ -36,10 +34,17 @@ int main(int argc, char *argv[]) {
 			ai = new AI();
 			break;
 		default:
-			printf("Invalid game mode! Defaulted to Player vs. Player.\n");
+			printf("Invalid game mode! Defaulted to Player vs. AI.\n");
 			player = new Player();
 			ai = new AI();
 			break;
+	}
+
+	if(gameMode == 1 || gameMode == 2) {
+		printf("Player 1, choose a side (w for white, b for black): ");
+		scanf("%c", &playerSide);
+	} else {
+		playerSide = 'w';
 	}
 
 	if(playerSide == 'w' || playerSide == 'W') {
