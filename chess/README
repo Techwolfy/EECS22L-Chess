@@ -1,0 +1,32 @@
+README
+======
+
+Author: Knight++
+Version: 0.0.1 Alpha
+Date: 1/27/16
+
+FILE LIST (USER)
+---------
+README - General instructions and introduction about the game.
+COPYRIGHT - Owners and legal matter
+INSTALL - Instructions to install the game
+bin/ - Directory that holds the game
+doc/ - Directory that holds the user manual
+
+Introduction
+-------------
+Welcome to our chess game! In order to play the game, you need to first install it.
+Open the "INSTALL" file and read it to understand how to install the game. Once that 
+is done, go to the "bin" directory to play the game! We hope you are able to fully enjoy 
+yourself with the many features included such as the different game modes, logs of the games,
+timers, and much more. Enjoy!
+
+Frequent Error Messages
+------------------------
+Move is out of bounds! - There is an attempt to move a piece not in the 
+range of the chessboard. 
+
+No move made! - There is an attempt to move a piece to the same spot.
+
+Invalid move! - There is an attempt to make an illegal move for the wrong
+piece. 
