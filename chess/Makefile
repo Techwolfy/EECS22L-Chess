@@ -6,23 +6,27 @@ OBJS=main.o player.o ai.o piece.o chessboard.o king.o knight.o queen.o rook.o bi
 
 #Build everything
 .PHONY: all
-all: dir bin/chess
+all: build test bin/chess
 
 #Load dependency information
 -include $(addprefix build/, $OBJS:.o=.d)
 
 #Make build and bin directories
-dir:
+build:
+	@echo "Building objects..."
 	mkdir -p build
 	mkdir -p bin
 
 #Build object files
-build/%.o: src/%.cpp | dir
-	@echo "Building objects..."
+build/%.o: src/%.cpp | build
 	$(CXX) -c -o $@ $< $(CFLAGS) -MMD
 
+#Test individual objects
+test: $(addprefix build/, $(OBJS)) | build
+	@echo "WARNING: Tests have not yet been created. Continuing..."
+
 #Build output binary
-bin/chess: $(addprefix build/, $(OBJS))
+bin/chess: $(addprefix build/, $(OBJS)) | test
 	@echo "Building chess binary..."
 	$(CXX) -o $@ $^
 
