@@ -37,8 +37,8 @@ bin/chess: $(addprefix build/, $(OBJS)) | test
 #Create release archives
 .PHONY: release
 release: | all
-	tar cvzf Chess_Alpha.tar.gz README COPYRIGHT INSTALL bin/ doc/
-	tar cvzf Chess_Alpha_src.tar.gz README COPYRIGHT INSTALL Makefile bin/ doc/ inc/ src/ test/
+	tar cvzf Chess_Alpha.tar.gz --exclude=CVS README COPYRIGHT INSTALL bin/ doc/
+	tar cvzf Chess_Alpha_src.tar.gz --exclude=CVS README COPYRIGHT INSTALL Makefile bin/ doc/ inc/ src/ test/
 
 
 #Clean up old build and release files
