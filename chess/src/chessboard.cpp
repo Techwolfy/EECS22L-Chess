@@ -183,7 +183,7 @@ void ChessBoard::availableMoves(int moves[8][8][8][8], side_t side) {
 		for(int j = 0; j < 8; j++) {
 			for(int k = 0; k < 8; k++) {
 				for(int l = 0; l < 8; l++) {
-					moves[i][j][k][l] = checkMove(*this, i, j, k, l) ? 1 : 0;
+					moves[i][j][k][l] = checkMove(side, i, j, k, l) ? 1 : 0;
 					printf("%d", moves[i][j][k][l]);
 				}
 			}
