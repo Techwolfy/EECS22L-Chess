@@ -60,7 +60,7 @@ void AI::getMove(ChessBoard &board, int *fromRow, int *fromCol, int *toRow, int 
 			if(!board.getPiece(i,j)->getCaptured() && board.getPiece(i, j)->getSide() == side) {   
 				for(int k = 0; k < 8; k++) {
 					for(int l = 0; l < 8; l++) {
-						if(board.getPiece(i, j)->checkMove(board, i, j, k, l) && i!=k && j!=l) {
+						if(board.checkMove(side, i, j, k, l) && i != k && j != l) {
 							*fromRow = i;
 							*fromCol = j;
 							*toRow = k;
