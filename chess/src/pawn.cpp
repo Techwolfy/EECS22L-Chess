@@ -11,6 +11,7 @@ Pawn::Pawn(side_t _side) {
 	type = PAWN;
 	side = _side;
 	hasMoved = false;
+	isCaptured = false;
 	if(_side == WHITE) {
 		display = "♟";
 	} else {
@@ -19,7 +20,7 @@ Pawn::Pawn(side_t _side) {
 }
 
 //Destructor
-Pawn::~Pawn(){
+Pawn::~Pawn() {
 
 }
 
