@@ -183,22 +183,7 @@ void ChessBoard::availableMoves(int moves[8][8][8][8], side_t side) {
 		for(int j = 0; j < 8; j++) {
 			for(int k = 0; k < 8; k++) {
 				for(int l = 0; l < 8; l++) {
-					//Bounds checking
-					if(i < 0 || i > 7 || j < 0 || j > 7 || k < 0 || k > 7 || l < 0 || l > 7) {
-						moves[i][j][k][l] = 0;
-					}
-
-					//No moving in place
-					if(i == j && k == l) {
-						moves[i][j][k][l] = 0;
-					}
-
-					//Move validation
-					if(pieces[i][j]->getSide() != side || pieces[i][j]->getCaptured()) {
-						moves[i][j][k][l] = 0;
-					}
-
-					moves[i][j][k][l] = pieces[i][j]->checkMove(*this, i, j, k, l) ? 1 : 0;
+					moves[i][j][k][l] = checkMove(side, i, j, k, l) ? 1 : 0;
 					printf("%d", moves[i][j][k][l]);
 				}
 			}
