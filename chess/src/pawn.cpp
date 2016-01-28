@@ -68,7 +68,7 @@ bool Pawn::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCo
   
 	if(!enpassantCheck(board, fromRow, fromCol, toRow, toCol)){
      if((toRow == 0) || (toRow == 7)){
-       board.promotion(toRow, toCol, board.getPiece(fromRow, fromCol)->getSide());
+       board.promote(board.getPiece(fromRow, fromCol)->getSide(), toRow, toCol);
        board.getPiece(fromRow, fromCol)->setCaptured();
      }
      else{

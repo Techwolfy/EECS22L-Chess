@@ -22,9 +22,9 @@ public:
 	bool checkMove(side_t side, int fromRow, int fromCol, int toRow, int toCol, bool displayErrors = false);
 	bool move(side_t side, int fromRow, int fromCol, int toRow, int toCol);
 	void swap(int fromRow, int fromCol, int toRow, int toCol);
+	void promote(side_t side, int row, int col);
 	side_t isThreatened(int row, int col);
 	void availableMoves(int moves[8][8][8][8], side_t side);
-  void promotion(int toRow, int toCol, side_t side);
 
 private:
 	//Variables

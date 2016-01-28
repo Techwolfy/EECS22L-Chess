@@ -164,37 +164,55 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 	}
 	return true;
 }
-//Pawn promotion
-void ChessBoard::promotion(int toRow, int toCol, side_t side){
-  char userInput;
-  printf("Promote pawn to: \n b - Bishop\n k - Knight\n q - Queen\n r - Rook\nEnter letter: \n");
-  scanf(" %c", &userInput);
-  if(userInput == 'b'){
-    delete pieces[toRow][toCol];
-    pieces[toRow][toCol] = new Bishop(side);
-  }
-  else if(userInput == 'k'){
-    delete pieces[toRow][toCol];
-    pieces[toRow][toCol] = new Knight(side);
-  }
-  else if(userInput == 'q'){
-    delete pieces[toRow][toCol];
-    pieces[toRow][toCol] = new Queen(side);
-  }
-  else if(userInput == 'r'){
-    delete pieces[toRow][toCol];
-    pieces[toRow][toCol] = new Rook(side);
-    }
-  else {
-    delete pieces[toRow][toCol];
-    pieces[toRow][toCol] = new Queen(side);
-  }
-}
+
 //Swap two pieces
 void ChessBoard::swap(int fromRow, int fromCol, int toRow, int toCol) {
 	Piece *temp = pieces[toRow][toCol];
 	pieces[toRow][toCol] = pieces[fromRow][fromCol];
 	pieces[fromRow][fromCol] = temp;
+}
+
+//Pawn promotion
+void ChessBoard::promote(side_t side, int row, int col) {
+	if(pieces[row][col]->getType() != PAWN) {
+		printf("Error; only pawns can be promoted!\n");
+		return;
+	}
+
+	//Determine what piece to promote to
+	char promoteType = 'q';
+	printf("Promote pawn to:\n");
+	printf("q - Queen\n");
+	printf("r - Rook\n");
+	printf("k - Knight\n");
+	printf("b - Bishop\n");
+	printf("Enter choice: \n");
+	scanf(" %c", &promoteType);
+
+	//Promote the pawn
+	switch(promoteType) {
+		case 'q':
+			delete pieces[row][col];
+			pieces[row][col] = new Queen(side);
+			break;
+		case 'r':
+			delete pieces[row][col];
+			pieces[row][col] = new Rook(side);
+			break;
+		case 'k':
+			delete pieces[row][col];
+			pieces[row][col] = new Knight(side);
+			break;
+		case 'b':
+			delete pieces[row][col];
+			pieces[row][col] = new Bishop(side);
+			break;
+		default:
+			printf("Invalid selection! Defaulted to queen.\n");
+			delete pieces[row][col];
+			pieces[row][col] = new Queen(side);
+			break;
+	}
 }
 
 //Determine if a square is threatened by another piece (i.e. it could move there next turn)
