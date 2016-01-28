@@ -25,6 +25,9 @@ public:
 	void setMoved();
 	bool getCaptured();
 	void setCaptured();
+  bool getEpass();
+  void setEpass();
+  void unsetEpass();
 	virtual bool checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
 	virtual bool move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
 	virtual bool revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
@@ -37,6 +40,7 @@ protected:
 	const char *display;
 	bool hasMoved;
 	bool isCaptured;
+  bool inEpass;
 };
 
 #endif //PIECE_H

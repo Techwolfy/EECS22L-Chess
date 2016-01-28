@@ -28,31 +28,36 @@ bool Pawn::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int
 
 	
 	if(fromRow == 1 && (fromCol == toCol) && (board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (toRow == fromRow+2) &&
-	(board.getPiece(fromRow+1, fromCol)->getCaptured() == true) && (board.getPiece(fromRow+2, fromCol)->getCaptured() == true)) {
+	  (board.getPiece(fromRow+1, fromCol)->getCaptured() == true) && (board.getPiece(fromRow+2, fromCol)->getCaptured() == true)) {
+     board.getPiece(fromRow, fromCol)->setEpass();
 			return true;
 		} 
 	else if(fromRow == 6 && (fromCol == toCol) && (board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (toRow == fromRow-2) &&
-	(board.getPiece(fromRow-1, fromCol)->getCaptured() == true) && (board.getPiece(fromRow-2, fromCol)->getCaptured() == true)) {
-			return true;
+         (board.getPiece(fromRow-1, fromCol)->getCaptured() == true) && (board.getPiece(fromRow-2, fromCol)->getCaptured() == true)) {
+          board.getPiece(fromRow, fromCol)->setEpass();
+		    	return true;
 		} 
 	else if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (toRow == fromRow+1) && (toCol == fromCol) && 
-           (board.getPiece(fromRow+1, fromCol)->getCaptured() == true)){
-			return true;
+         (board.getPiece(fromRow+1, fromCol)->getCaptured() == true)){
+          board.getPiece(fromRow, fromCol)->unsetEpass();
+			    return true;
 		}
 	else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (toRow == fromRow-1) && (toCol == fromCol) && 
-          (board.getPiece(fromRow-1, fromCol)->getCaptured() == true  )){
-			return true;
+          (board.getPiece(fromRow-1, fromCol)->getCaptured() == true )){
+          board.getPiece(fromRow, fromCol)->unsetEpass();
+			    return true;
 		}
 	else if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (toRow == fromRow+1) && ((toCol == fromCol+1) || (toCol == fromCol-1)) && 
           (board.getPiece(toRow, toCol)->getSide() == BLACK)) {
-			return true;
+          board.getPiece(fromRow, fromCol)->unsetEpass();
+		    	return true;
 		}
 	else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (toRow == fromRow-1) && ((toCol == fromCol+1) || (toCol == fromCol-1)) && 
           (board.getPiece(toRow, toCol)->getSide() == WHITE)){
-			return true;
+          board.getPiece(fromRow, fromCol)->unsetEpass();
+		     	return true;
 		}
 	else if(enpassantCheck(board, fromRow, fromCol, toRow, toCol)){
-		
 			return true;
 	}
 	else {
@@ -68,7 +73,7 @@ bool Pawn::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCo
   
 	if(!enpassantCheck(board, fromRow, fromCol, toRow, toCol)){
      if((toRow == 0) || (toRow == 7)){
-       board.promote(board.getPiece(fromRow, fromCol)->getSide(), toRow, toCol);
+       board.promote(board.getPiece(toRow, toCol)->getSide(), toRow, toCol);
        board.getPiece(fromRow, fromCol)->setCaptured();
      }
      else{
@@ -100,20 +105,20 @@ bool Pawn::revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, in
 }
 
 bool Pawn::enpassantCheck(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
-	if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (fromRow == 4) && (fromCol-1 >=0) && (board.getPiece(fromRow, fromCol-1)->getSide() == BLACK) && 
-		(board.getPiece(fromRow, fromCol-1)->getType() == PAWN) && (toRow == fromRow+1) && (toCol == fromCol-1)){
+	  if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (fromRow == 4) && (fromCol-1 >=0) && (board.getPiece(fromRow, fromCol-1)->getSide() == BLACK)
+    && (board.getPiece(fromRow, fromCol-1)->getEpass() == true) && (toRow == fromRow+1) && (toCol == fromCol-1)){
 			return true;
 		}
-		else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (fromRow == 3) && (fromCol-1 >=0) && (board.getPiece(fromRow, fromCol-1)->getSide() == WHITE) && 
-		(board.getPiece(fromRow, fromCol-1)->getType() == PAWN) && (toRow == fromRow-1) && (toCol == fromCol-1)){
+		else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (fromRow == 3) && (fromCol-1 >=0) && (board.getPiece(fromRow, fromCol-1)->getSide() == WHITE)
+    && (board.getPiece(fromRow, fromCol-1)->getEpass() == true) && (toRow == fromRow-1) && (toCol == fromCol-1)){
 			return true;
 		}
-	  else if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (fromRow == 4) && (fromCol+1 <= 7) && (board.getPiece(fromRow, fromCol+1)->getSide() == BLACK) && 
-		(board.getPiece(fromRow, fromCol+1)->getType() == PAWN) && (toRow == fromRow+1) && (toCol == fromCol+1)){
+	  else if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (fromRow == 4) && (fromCol+1 <= 7) && (board.getPiece(fromRow, fromCol+1)->getSide() == BLACK)
+    && (board.getPiece(fromRow, fromCol+1)->getEpass() == true) && (toRow == fromRow+1) && (toCol == fromCol+1)){
 			return true;
 		}
-		else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (fromRow == 3) && (fromCol+1 <=7) && (board.getPiece(fromRow, fromCol+1)->getSide() == WHITE) && 
-		(board.getPiece(fromRow, fromCol+1)->getType() == PAWN) && (toRow == fromRow-1) && (toCol == fromCol+1)){
+		else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (fromRow == 3) && (fromCol+1 <=7) && (board.getPiece(fromRow, fromCol+1)->getSide() == WHITE)
+    && (board.getPiece(fromRow, fromCol+1)->getEpass() == true) && (toRow == fromRow-1) && (toCol == fromCol+1)){
 			return true;
 		}
     else {

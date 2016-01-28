@@ -23,6 +23,5 @@ public:
 private:
 	//Functions
 	bool enpassantCheck(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol);
-};
-
+ };
 #endif //PAWN_H
