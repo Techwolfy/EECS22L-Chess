@@ -92,40 +92,52 @@ side_t ChessBoard::getWinner() {
 }
 
 //Check if a move is possible
-bool ChessBoard::checkMove(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
+bool ChessBoard::checkMove(side_t side, int fromRow, int fromCol, int toRow, int toCol, bool displayErrors /* = false */) {
 	//Bounds checking
 	if(fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 || toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
-		printf("Error; move is out of bounds!\n");
+		if(displayErrors) {
+			printf("Error; move is out of bounds!\n");
+		}
 		return false;
 	}
 
 	//No moving in place
 	if(fromRow == fromCol && toRow == toCol) {
-		printf("Error; no move made!\n");
+		if(displayErrors) {
+			printf("Error; no move made!\n");
+		}
 		return false;
 	}
 
 	//No moving on top of your own pieces
 	if(!pieces[toRow][toCol]->getCaptured() && pieces[fromRow][fromCol]->getSide() == pieces[toRow][toCol]->getSide()) {
-		printf("Error; capturing your own pieces is not allowed!");
+		if(displayErrors) {
+			printf("Error; capturing your own pieces is not allowed!");
+		}
 		return false;
 	}
 
 	//No moving the opponent's pieces
 	if(pieces[fromRow][fromCol]->getSide() != side) {
-		printf("Error; you do not control that piece!\n");
+		if(displayErrors) {
+			printf("Error; you do not control that piece!\n");
+		}
 		return false;
 	}
 
 	//Make sure the piece exists
 	if(pieces[fromRow][fromCol]->getCaptured()) {
-		printf("Error; piece does not exist!\n");
+		if(displayErrors) {
+			printf("Error; piece does not exist!\n");
+		}
 		return false;
 	}
 
 	//Move validation
 	if(!pieces[fromRow][fromCol]->checkMove(*this, fromRow, fromCol, toRow, toCol)) {
-		printf("Error; invalid move!\n");
+		if(displayErrors) {
+			printf("Error; invalid move!\n");
+		}
 		return false;
 	}
 
@@ -136,7 +148,7 @@ bool ChessBoard::checkMove(side_t side, int fromRow, int fromCol, int toRow, int
 //Move a piece
 bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
 	//Move validation
-	if(!checkMove(side, fromRow, fromCol, toRow, toCol)) {
+	if(!checkMove(side, fromRow, fromCol, toRow, toCol, true)) {
 		//Invalid move
 		return false;
 	} else {
@@ -190,9 +202,18 @@ side_t ChessBoard::isThreatened(int row, int col) {
 	side_t threatenedSide = NEITHER;
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j < 8; j++) {
-			if(pieces[i][j]->checkMove(*this, i, j, row, col)) {	//TODO: Assume square is threatened?
+			//Check white pieces
+			if(checkMove(WHITE, i, j, row, col)) {	//TODO: Assume square is threatened?
 				if(threatenedSide == NEITHER) {
-					threatenedSide = pieces[i][j]->getSide();
+					threatenedSide = WHITE;
+				} else if(threatenedSide != pieces[i][j]->getSide()) {
+					return BOTH;
+				}
+			}
+			//Check black pieces
+			if(checkMove(BLACK, i, j, row, col)) {	//TODO: Assume square is threatened?
+				if(threatenedSide == NEITHER) {
+					threatenedSide = BLACK;
 				} else if(threatenedSide != pieces[i][j]->getSide()) {
 					return BOTH;
 				}
