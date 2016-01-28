@@ -28,20 +28,21 @@ bool Pawn::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int
 
 	
 	if(fromRow == 1 && (fromCol == toCol) && (board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (toRow == fromRow+2) &&
-	(board.getPiece(fromRow+1, fromCol)->getSide() == 0) && (board.getPiece(fromRow+2, fromCol)->getSide() == 0)) {
+	(board.getPiece(fromRow+1, fromCol)->getCaptured() == true) && (board.getPiece(fromRow+2, fromCol)->getCaptured() == true)) {
 			return true;
 		} 
 	else if(fromRow == 6 && (fromCol == toCol) && (board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (toRow == fromRow-2) &&
-	(board.getPiece(fromRow-1, fromCol)->getSide() == 0) && (board.getPiece(fromRow-2, fromCol)->getSide() == 0)) {
+	(board.getPiece(fromRow-1, fromCol)->getCaptured() == true) && (board.getPiece(fromRow-2, fromCol)->getCaptured() == true)) {
 			return true;
 		} 
-	else if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (toRow == fromRow+1) && (toCol == fromCol) && (board.getPiece(fromRow+1, fromCol)->getSide() == 0)){
+	else if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (toRow == fromRow+1) && (toCol == fromCol) && 
+           (board.getPiece(fromRow+1, fromCol)->getCaptured() == true)){
 			return true;
 		}
-	else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (toRow == fromRow-1) && (toCol == fromCol) && (board.getPiece(fromRow-1, fromCol)->getSide() == 0)){
+	else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (toRow == fromRow-1) && (toCol == fromCol) && 
+          (board.getPiece(fromRow-1, fromCol)->getCaptured() == true  )){
 			return true;
 		}
-
 	else if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (toRow == fromRow+1) && ((toCol == fromCol+1) || (toCol == fromCol-1)) && 
           (board.getPiece(toRow, toCol)->getSide() == BLACK)) {
 			return true;
