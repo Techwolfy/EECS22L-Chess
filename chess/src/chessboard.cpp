@@ -55,7 +55,7 @@ void ChessBoard::display() {
 	printf(" ║┌───┬───┬───┬───┬───┬───┬───┬───┐║ \n");
 
 	for(int i = 7; i >= 0; i--) {
-		printf("%d║│", i);
+		printf("%d║│", i + 1);
 		for(int j = 0; j < 8; j++) {
 			printf(" %s │", pieces[i][j]->getDisplayChar());
 		}

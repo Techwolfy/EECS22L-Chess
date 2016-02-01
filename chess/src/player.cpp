@@ -39,6 +39,10 @@ void Player::getMove(ChessBoard &board, int *fromRow, int *fromCol, int *toRow, 
 	//Convert input characters to output integers
 	*fromCol = fromColIn;
 	*toCol = toColIn;
+
+	//Convert from 1-based to 0-based indexing
+	*fromRow -= 1;
+	*toRow -= 1;
 }
 
 side_t Player::getSide() {
