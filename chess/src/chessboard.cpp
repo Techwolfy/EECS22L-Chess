@@ -84,7 +84,12 @@ side_t ChessBoard::getWinner() {
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j < 8; j++) {
 			if(pieces[i][j]->checkmate(*this, i, j)) {
-				return pieces[i][j]->getSide();
+				//Return the side causing the checkmate, not the losing side
+				if(pieces[i][j]->getSide() == WHITE) {
+					return BLACK;
+				} else {
+					return WHITE;
+				}
 			}
 		}
 	}
@@ -221,7 +226,7 @@ side_t ChessBoard::isThreatened(int row, int col) {
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j < 8; j++) {
 			//Check white pieces
-			if(checkMove(WHITE, i, j, row, col)) {	//TODO: Assume square is threatened?
+			if(checkMove(WHITE, i, j, row, col)) {
 				if(threatenedSide == NEITHER) {
 					threatenedSide = WHITE;
 				} else if(threatenedSide != pieces[i][j]->getSide()) {
@@ -229,7 +234,7 @@ side_t ChessBoard::isThreatened(int row, int col) {
 				}
 			}
 			//Check black pieces
-			if(checkMove(BLACK, i, j, row, col)) {	//TODO: Assume square is threatened?
+			if(checkMove(BLACK, i, j, row, col)) {
 				if(threatenedSide == NEITHER) {
 					threatenedSide = BLACK;
 				} else if(threatenedSide != pieces[i][j]->getSide()) {

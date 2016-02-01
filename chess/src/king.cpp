@@ -130,7 +130,7 @@ bool King::checkmate(ChessBoard &board, int row, int col) {
 				if(threat == NEITHER || threat == side) {
 					isCaptured = false;
 					return false;
-				}
+				} else {}
 			}
 		}
 	}
