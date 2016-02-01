@@ -44,16 +44,17 @@ bool Queen::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, in
 				}
 			}
 		} else {
-		if(toCol > fromCol) {
-			for(int i = fromCol + 1; i < toCol; i++) {
-				if(!board.getPiece(fromRow, i)->getCaptured()) {
-					return false;
+			if(toCol > fromCol) {
+				for(int i = fromCol + 1; i < toCol; i++) {
+					if(!board.getPiece(fromRow, i)->getCaptured()) {
+						return false;
+					}
 				}
-			}
-		} else {
-			for(int i = fromCol - 1; i > toCol; i--) {
-				if(!board.getPiece(fromRow, i)->getCaptured()) {
-					return false;
+			} else {
+				for(int i = fromCol - 1; i > toCol; i--) {
+					if(!board.getPiece(fromRow, i)->getCaptured()) {
+						return false;
+					}
 				}
 			}
 		}
