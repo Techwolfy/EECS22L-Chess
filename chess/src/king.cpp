@@ -115,6 +115,9 @@ bool King::revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, in
 }
 
 bool King::checkmate(ChessBoard &board, int row, int col) {
+	isCaptured = true;	//Prevent the king from obstructing threatened squares
+
+	//Check every piece to find which are threatening the king and surrounding squares
 	for(int i = row - 1; i <= row + 1; i++) {
 		for(int j = col - 1; j <= col + 1; j++) {
 			if(i > 0 && i < 8 && j > 0 && j < 8){
@@ -125,11 +128,14 @@ bool King::checkmate(ChessBoard &board, int row, int col) {
 				//Check if the king and surrounding squares are threatened
 				side_t threat = board.isThreatened(i, j);
 				if(threat == NEITHER || threat == side) {
+					isCaptured = false;
 					return false;
 				}
 			}
 		}
 	}
+
+	isCaptured = false;
 
 	//The king is threatened and can't move
 	return true;
