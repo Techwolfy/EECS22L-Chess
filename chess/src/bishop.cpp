@@ -28,39 +28,39 @@ Bishop::~Bishop() {
 bool Bishop::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	//Diagonal movement
 	if(abs(fromCol - toCol) == abs(fromRow - toRow)) {
-		if(abs(toRow-fromRow)>1){
-			if(fromRow<toRow){
-				if(fromCol<toCol){
-					for(int i=1; i<toRow-fromRow; i++){
-						if(board.getPiece(fromRow+i,fromCol+i)->getCaptured()!=true) return false;
+		if(fromRow < toRow) {
+			if(fromCol < toCol) {
+				for(int i = 1; i < toRow - fromRow; i++) {
+					if(!board.getPiece(fromRow + i, fromCol + i)->getCaptured()) {
+						return false;
 					}
 				}
-				else if(fromCol>toCol){
-					for(int i=1; i<toRow-fromRow; i++){
-						if(board.getPiece(fromRow+i,fromCol-i)->getCaptured()!=true) return false;
+			} else {
+				for(int i = 1; i < toRow - fromRow; i++) {
+					if(!board.getPiece(fromRow + i, fromCol - i)->getCaptured()) {
+						return false;
 					}
 				}
 			}
-			else if(fromRow>toRow){
-				if(fromCol<toCol){
-					for(int i=1; i<fromRow-toRow; i++){
-						if(board.getPiece(fromRow-i,fromCol+i)->getCaptured()!=true) return false;
+		} else {
+			if(fromCol < toCol) {
+				for(int i = 1; i < fromRow - toRow; i++) {
+					if(!board.getPiece(fromRow - i, fromCol + i)->getCaptured()) {
+						return false;
 					}
 				}
-				else if(fromCol>toCol){
-					for(int i=1; i<fromRow-toRow; i++){
-						if(board.getPiece(fromRow-i,fromCol-i)->getCaptured()!=true) return false;
+			} else {
+				for(int i = 1; i < fromRow - toRow; i++) {
+					if(!board.getPiece(fromRow - i, fromCol - i)->getCaptured()) {
+						return false;
 					}
 				}
 			}
 		}
-		if(board.getPiece(toRow,toCol)->getCaptured()!=true){
-			if(board.getPiece(toRow,toCol)->getSide()==this->side) return false;
-		}
-		return true;
 	}
-	//All checks have failed
-	return false;
+
+	//All checks have passed
+	return true;
 }
 
 bool Bishop::revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
