@@ -2,36 +2,43 @@
 
 CXX=g++
 CFLAGS=-std=c++0x -g -Iinc
-OBJS=main.o player.o ai.o piece.o chessboard.o king.o knight.o queen.o rook.o bishop.o pawn.o
+OBJS=player.o ai.o piece.o chessboard.o king.o knight.o queen.o rook.o bishop.o pawn.o
+TESTS=test-piece
 
 #Build everything
 .PHONY: all
-all: build test bin/chess
+all: build bin/chess test
 
 #Load dependency information
 -include $(addprefix build/, $OBJS:.o=.d)
 
 
-#Make build and bin directories
+#Make build, test, and bin directories
 .PHONY: build
 build:
 	@echo "Building objects..."
 	mkdir -p build
+	mkdir -p build/test
 	mkdir -p bin
 
 #Build object files
 build/%.o: src/%.cpp | build
 	$(CXX) -c -o $@ $< $(CFLAGS) -MMD
 
-#Test individual objects
-.PHONY: test
-test: $(addprefix build/, $(OBJS)) | build
-	@echo "WARNING: Tests have not yet been created. Continuing..."
-
 #Build output binary
-bin/chess: $(addprefix build/, $(OBJS)) | test
+bin/chess: build/main.o $(addprefix build/, $(OBJS))
 	@echo "Building chess binary..."
 	$(CXX) -o $@ $^
+
+
+#Test individual objects
+.PHONY: test
+test: $(addprefix build/test/, $(TESTS)) | build
+	@echo "Running tests..."
+	$<
+
+build/test/%: test/%.cpp $(addprefix build/, $(OBJS)) | build
+	$(CXX) -o $@ $< $(addprefix build/, $(OBJS)) $(CFLAGS)
 
 
 #Create release archives
@@ -46,4 +53,3 @@ release: | all
 clean:
 	@echo "Cleaning up build files..."
 	rm -rf build/ bin/ *.tar.gz
-
