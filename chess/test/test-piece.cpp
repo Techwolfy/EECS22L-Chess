@@ -16,12 +16,12 @@ int main() {
 	assert(p.getCaptured());
 	
 	//TODO: En-passant logic?
-  	
-  	assert(p.checkMove(b, 0, 0, 0, 0) == false);
-  	assert(p.move(b, 0, 0, 0, 0) == false);
-  	assert(p.revertMove(b, 0, 0, 0, 0) == false);
-  	assert(p.checkmate(b, 0, 0) == NEITHER);
+	
+	assert(p.checkMove(b, 0, 0, 0, 0) == false);
+	assert(p.move(b, 0, 0, 0, 0) == false);
+	assert(p.revertMove(b, 0, 0, 0, 0) == false);
+	assert(p.checkmate(b, 0, 0) == NEITHER);
 
-  	printf("Piece object tests passed!\n");
+	printf("Piece object tests passed!\n");
 	return 0;
 }

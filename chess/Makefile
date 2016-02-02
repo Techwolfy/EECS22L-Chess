@@ -3,7 +3,7 @@
 CXX=g++
 CFLAGS=-std=c++0x -g -Iinc
 OBJS=player.o ai.o piece.o chessboard.o king.o knight.o queen.o rook.o bishop.o pawn.o
-TESTS=test-piece
+TESTS=test-piece test-scholarsmate
 
 #Build everything
 .PHONY: all
@@ -35,7 +35,7 @@ bin/chess: build/main.o $(addprefix build/, $(OBJS))
 .PHONY: test
 test: $(addprefix build/test/, $(TESTS)) | build
 	@echo "Running tests..."
-	$<
+	for t in $^; do ./$$t; done
 
 build/test/%: test/%.cpp $(addprefix build/, $(OBJS)) | build
 	$(CXX) -o $@ $< $(addprefix build/, $(OBJS)) $(CFLAGS)
