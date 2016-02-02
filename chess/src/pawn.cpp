@@ -97,19 +97,19 @@ bool Pawn::revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, in
 
 bool Pawn::enpassantCheck(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	if(side == WHITE && fromRow == 4 && (fromCol - 1) >= 0 && board.getPiece(fromRow, fromCol - 1)->getSide() == BLACK
-	&& board.getPiece(fromRow, fromCol - 1)->getEpass() && toRow == (fromRow + 1) && toCol == (fromCol - 1)) {
+	&& board.getPiece(fromRow, fromCol - 1)->getEnPassant() && toRow == (fromRow + 1) && toCol == (fromCol - 1)) {
 		return true;
 	}
 	else if(side == BLACK && fromRow == 3 && (fromCol - 1) >= 0 && board.getPiece(fromRow, fromCol - 1)->getSide() == WHITE
-	&& board.getPiece(fromRow, fromCol - 1)->getEpass() && toRow == (fromRow - 1) && toCol == (fromCol - 1)) {
+	&& board.getPiece(fromRow, fromCol - 1)->getEnPassant() && toRow == (fromRow - 1) && toCol == (fromCol - 1)) {
 		return true;
 	}
 	else if(side == WHITE && fromRow == 4 && (fromCol + 1) <= 7 && board.getPiece(fromRow, fromCol + 1)->getSide() == BLACK
-	&& board.getPiece(fromRow, fromCol + 1)->getEpass() && toRow == (fromRow + 1) && toCol == (fromCol + 1)) {
+	&& board.getPiece(fromRow, fromCol + 1)->getEnPassant() && toRow == (fromRow + 1) && toCol == (fromCol + 1)) {
 		return true;
 	}
 	else if(side == BLACK && fromRow == 3 && (fromCol + 1) <= 7 && board.getPiece(fromRow, fromCol + 1)->getSide() == WHITE
-	&& board.getPiece(fromRow, fromCol + 1)->getEpass() && toRow == (fromRow - 1) && toCol == (fromCol + 1)) {
+	&& board.getPiece(fromRow, fromCol + 1)->getEnPassant() && toRow == (fromRow - 1) && toCol == (fromCol + 1)) {
 		return true;
 	}
 	else {
