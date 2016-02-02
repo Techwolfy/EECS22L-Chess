@@ -107,7 +107,7 @@ bool ChessBoard::checkMove(side_t side, int fromRow, int fromCol, int toRow, int
 	}
 
 	//No moving in place
-	if(fromRow == fromCol && toRow == toCol) {
+	if(fromRow == toRow && fromCol == toCol) {
 		if(displayErrors) {
 			printf("Error; no move made!\n");
 		}
