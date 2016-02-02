@@ -158,12 +158,15 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 		return false;
 	} else {
 		//Move the piece
-		pieces[fromRow][fromCol]->move(*this, fromRow, fromCol, toRow, toCol);
+		if(!pieces[fromRow][fromCol]->move(*this, fromRow, fromCol, toRow, toCol)) {
+			printf("Error moving piece!\n");
+			return false;
+		}
 
 		//FIXME: Preliminary log
-		printf("%c%d %c%d\n", fromCol + 'a', fromRow, toCol + 'a', toRow);
+		printf("%c%d %c%d\n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
 		if(logFile != NULL) {
-			fprintf(logFile, "%c%d %c%d\n", fromCol + 'a', fromRow, toCol + 'a', toRow);
+			fprintf(logFile, "%c%d %c%d\n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
 			fflush(logFile);
 		}
 	}
