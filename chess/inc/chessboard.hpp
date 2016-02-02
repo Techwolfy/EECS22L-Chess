@@ -30,6 +30,9 @@ private:
 	//Variables
 	Piece *pieces[8][8];
 	FILE *logFile;
+
+	//Functions
+	bool checkMoveAllowOverlap(side_t side, int fromRow, int fromCol, int toRow, int toCol, bool displayErrors = false);
 };
 
 #endif //CHESSBOARD_H

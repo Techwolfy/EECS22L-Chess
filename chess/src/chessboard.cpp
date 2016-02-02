@@ -98,6 +98,20 @@ side_t ChessBoard::getWinner() {
 
 //Check if a move is possible
 bool ChessBoard::checkMove(side_t side, int fromRow, int fromCol, int toRow, int toCol, bool displayErrors /* = false */) {
+	//No moving on top of your own pieces (block overlap)
+	if(!pieces[toRow][toCol]->getCaptured() && pieces[fromRow][fromCol]->getSide() == pieces[toRow][toCol]->getSide()) {
+		if(displayErrors) {
+			printf("Error; capturing your own pieces is not allowed!");
+		}
+		return false;
+	}
+
+	//Call lower-level checkMove
+	return checkMoveAllowOverlap(side, fromRow, fromCol, toRow, toCol, displayErrors);
+}
+
+//Check if a move is possible, allowing players to capture their own pieces
+bool ChessBoard::checkMoveAllowOverlap(side_t side, int fromRow, int fromCol, int toRow, int toCol, bool displayErrors /* = false */) {
 	//Bounds checking
 	if(fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 || toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
 		if(displayErrors) {
@@ -149,12 +163,6 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 		//Invalid move
 		return false;
 	} else {
-		//No moving on top of your own pieces
-		if(!pieces[toRow][toCol]->getCaptured() && pieces[fromRow][fromCol]->getSide() == pieces[toRow][toCol]->getSide()) {
-			printf("Error; capturing your own pieces is not allowed!");
-			return false;
-		}
-
 		//Move the piece
 		if(!pieces[fromRow][fromCol]->move(*this, fromRow, fromCol, toRow, toCol)) {
 			printf("Error moving piece!\n");
@@ -227,7 +235,7 @@ side_t ChessBoard::isThreatened(int row, int col) {
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j < 8; j++) {
 			//Check white pieces
-			if(checkMove(WHITE, i, j, row, col)) {
+			if(checkMoveAllowOverlap(WHITE, i, j, row, col)) {
 				if(threatenedSide == NEITHER) {
 					threatenedSide = WHITE;
 				} else if(threatenedSide == BLACK) {
@@ -235,7 +243,7 @@ side_t ChessBoard::isThreatened(int row, int col) {
 				}
 			}
 			//Check black pieces
-			if(checkMove(BLACK, i, j, row, col)) {
+			if(checkMoveAllowOverlap(BLACK, i, j, row, col)) {
 				if(threatenedSide == NEITHER) {
 					threatenedSide = BLACK;
 				} else if(threatenedSide == WHITE) {
