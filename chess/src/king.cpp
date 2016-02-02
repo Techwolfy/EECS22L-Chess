@@ -128,7 +128,7 @@ bool King::checkmate(ChessBoard &board, int row, int col) {
 		for(int j = col - 1; j <= col + 1; j++) {
 			if(i > 0 && i < 8 && j > 0 && j < 8){
 				//For all squares surrounding the king, check if they are unoccupied first
-				if(i != row && j != col && !board.getPiece(i, j)->getCaptured() && board.getPiece(i, j)->getSide() == side) {
+				if((i != row || j != col) && !board.getPiece(i, j)->getCaptured() && board.getPiece(i, j)->getSide() == side) {
 					continue;
 				}
 				//Check if the king and surrounding squares are threatened
