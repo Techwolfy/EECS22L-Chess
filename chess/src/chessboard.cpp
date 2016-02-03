@@ -28,7 +28,6 @@ ChessBoard::ChessBoard() : pieces{
 	if(logFile == NULL) {
 		printf("Failed to open log file! No log file will be used for this game.\n");
 	}
-   lastPiece = NULL;
 }
 
 //Destructor
@@ -176,71 +175,14 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 			return false;
 		}
 
-  lastPiece = pieces[toRow][toCol];
-
+		//FIXME: Preliminary log
 		printf("%c%d %c%d\n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
 		if(logFile != NULL) {
-            //log player color 
-            switch(pieces[fromRow][fromCol]->getSide()){
-                case WHITE:
-                    fprintf(logFile, "White ");
-                    printf("%d", pieces[fromRow][fromCol]->getSide());
-                    break;
-                case BLACK:
-                    fprintf(logFile, "Black ");
-                    printf("%d", pieces[fromRow][fromCol]->getSide());
-                    break;
-                default:
-                    printf("%d", pieces[fromRow][fromCol]->getSide());
-                    break;
-            }
-            //log the piece type
-            switch(pieces[fromRow][fromCol]->getType()){
-                case PAWN:
-                    fprintf(logFile, "P ");
-                    break;
-                case ROOK:
-                    fprintf(logFile, "R ");
-                    break;
-                case KNIGHT:
-                    fprintf(logFile, "N ");
-                    break;
-                case BISHOP:
-                    fprintf(logFile, "B ");
-                    break;
-                case QUEEN:
-                    fprintf(logFile, "Q ");
-                    break;
-                case KING:
-                    fprintf(logFile, "K ");
-                    break;
-                default:
-                    printf("%d", pieces[fromRow][fromCol]->getType());
-                    break;
-            }
-            //log positions
-            switch(pieces[fromRow][fromCol]->getSide()){
-                case WHITE:
-                    fprintf(logFile, "%c%d -> %c%d \n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
-                    if (getWinner() == WHITE){
-                      fprintf(logFile, "White is the winner!");
-                    }
-                    fflush(logFile);
-                    break;
-                case BLACK:
-                    fprintf(logFile, "%c%d -> %c%d \n ", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
-                    if (getWinner() == BLACK){
-                      fprintf(logFile, "Black is the winner!");
-                    }                    
-                    fflush(logFile);
-                    break;
-                default:
-                    printf("%d", pieces[fromRow][fromCol]->getSide());
-                    break;
-		        }
+			fprintf(logFile, "%c%d %c%d\n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
+			fflush(logFile);
+		}
 	}
 	return true;
- }
 }
 
 //Swap two pieces
@@ -250,14 +192,9 @@ void ChessBoard::swap(int fromRow, int fromCol, int toRow, int toCol) {
 	pieces[fromRow][fromCol] = temp;
 }
 
-
-Piece* ChessBoard::getLast(){
-  return lastPiece;
-}
-
 //Pawn promotion
-void ChessBoard::promote(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
-	if(pieces[fromRow][fromCol]->getType() != PAWN) {
+void ChessBoard::promote(side_t side, int row, int col) {
+	if(pieces[row][col]->getType() != PAWN) {
 		printf("Error; only pawns can be promoted!\n");
 		return;
 	}
@@ -275,30 +212,27 @@ void ChessBoard::promote(side_t side, int fromRow, int fromCol, int toRow, int t
 	//Promote the pawn
 	switch(promoteType) {
 		case 'q':
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Queen(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Queen(side);
 			break;
 		case 'r':
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Rook(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Rook(side);
 			break;
 		case 'k':
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Knight(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Knight(side);
 			break;
 		case 'b':
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Bishop(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Bishop(side);
 			break;
 		default:
 			printf("Invalid selection! Defaulted to queen.\n");
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Queen(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Queen(side);
 			break;
 	}
-  if(logFile != NULL){
-    fprintf(logFile, "Pawn promoted to %c \n", promoteType);
-  }
 }
 
 //Determine if a square is threatened by another piece (i.e. it could move there next turn)
@@ -385,17 +319,3 @@ void ChessBoard::listPieces(chess_t list[8][8]) {
 		}
 	}
 }
-
-/*void copyboard(ChessBoard &bdto,ChessBoard &bdorigin){
-    int i,j;//needs to be done,someone help
-    for(int i = 0; i < 8; i++) {
-		for(int j = 0; j < 8; j++) {
-			bdto.Pieces[i][j]=bdorigin.getPiece(i,j);
-		}
-    }
-}
-*/
-
-
-
-
