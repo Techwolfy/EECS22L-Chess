@@ -2,6 +2,7 @@
 #include "chessboard.hpp"
 #include "player.hpp"
 #include "ai.hpp"
+#include "aischolar.hpp"
 #include "types.hpp"
 
 int main(int argc, char *argv[]) {
@@ -19,7 +20,8 @@ int main(int argc, char *argv[]) {
 		printf("Available game modes:\n");
 		printf("1. Player vs. Player\n");
 		printf("2. Player vs. AI\n");
-		printf("3. AI vs. AI\n");
+		printf("3. Player vs. AI-Scholar\n");
+		printf("4. AI vs. AI\n");
 		printf("Choose a game mode: ");
 		scanf(" %d", &gameMode);
 
@@ -34,6 +36,10 @@ int main(int argc, char *argv[]) {
 				ai = new AI();
 				break;
 			case 3:
+				player = new Player();
+				ai = new AIScholar();
+				break;
+			case 4:
 				player = new AI();
 				ai = new AI();
 				break;
@@ -45,7 +51,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		//Determine player side (if necessary)
-		if(gameMode == 1 || gameMode == 2) {
+		if(gameMode == 1 || gameMode == 2 || gameMode == 3) {
 			printf("Player 1, choose a side (w for white, b for black): ");
 			scanf(" %c", &playerSide);
 		} else {
@@ -83,6 +89,7 @@ int main(int argc, char *argv[]) {
 				} while(board->move(ai->getSide(), fromRow, fromCol, toRow, toCol) == false);
 				playerMove = true;
 			}
+			board->display();
 		}
 
 		//Game over
