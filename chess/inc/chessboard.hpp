@@ -22,12 +22,16 @@ public:
 	bool checkMove(side_t side, int fromRow, int fromCol, int toRow, int toCol, bool displayErrors = false);
 	bool move(side_t side, int fromRow, int fromCol, int toRow, int toCol);
 	void swap(int fromRow, int fromCol, int toRow, int toCol);
-	void promote(side_t side, int row, int col);
+	void promote(side_t side, int fromRow, int fromFCol, int toRow, int toCol);
 	side_t isThreatened(int row, int col);
+	void availableMoves(int moves[8][8][8][8], side_t side);
+  void savePiece(int row, int col);
+  Piece* getSaved();
 	void listPieces(chess_t list[8][8]);
 
 private:
 	//Variables
+  Piece *previousPiece;
 	Piece *pieces[8][8];
 	FILE *logFile;
 

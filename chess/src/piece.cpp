@@ -10,7 +10,7 @@ Piece::Piece() : type(NONE),
 				 display(" "),
 				 hasMoved(true),
 				 isCaptured(true),
-				 enPassant(false) {
+				 inEpass(false) {
 
 }
 
@@ -58,14 +58,13 @@ void Piece::setCaptured() {
 	isCaptured = true;
 }
 
-bool Piece::getEnPassant() {
-   return enPassant;
+bool Piece::getEpass() {
+   return inEpass;
 }
 
-void Piece::setEnPassant(bool valid) {
-    enPassant = valid;
+void Piece::setEpass() {
+    inEpass = true;
 }
-
 //Check if a move is valid
 bool Piece::checkMove(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	//Blank piece object
