@@ -28,6 +28,7 @@ ChessBoard::ChessBoard() : pieces{
 	if(logFile == NULL) {
 		printf("Failed to open log file! No log file will be used for this game.\n");
 	}
+   lastPiece = NULL;
 }
 
 //Destructor
@@ -174,7 +175,7 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 			printf("Error moving piece!\n");
 			return false;
 		}
-
+    lastPiece = pieces[toRow][toCol];
 		//FIXME: Preliminary log
 		printf("%c%d %c%d\n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
 		if(logFile != NULL) {
@@ -192,9 +193,14 @@ void ChessBoard::swap(int fromRow, int fromCol, int toRow, int toCol) {
 	pieces[fromRow][fromCol] = temp;
 }
 
+
+Piece* ChessBoard::getLast(){
+  return lastPiece;
+}
+
 //Pawn promotion
-void ChessBoard::promote(side_t side, int row, int col) {
-	if(pieces[row][col]->getType() != PAWN) {
+void ChessBoard::promote(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
+	if(pieces[fromRow][fromCol]->getType() != PAWN) {
 		printf("Error; only pawns can be promoted!\n");
 		return;
 	}
@@ -212,25 +218,25 @@ void ChessBoard::promote(side_t side, int row, int col) {
 	//Promote the pawn
 	switch(promoteType) {
 		case 'q':
-			delete pieces[row][col];
-			pieces[row][col] = new Queen(side);
+			delete pieces[toRow][toCol];
+			pieces[toRow][toCol] = new Queen(side);
 			break;
 		case 'r':
-			delete pieces[row][col];
-			pieces[row][col] = new Rook(side);
+			delete pieces[toRow][toCol];
+			pieces[toRow][toCol] = new Rook(side);
 			break;
 		case 'k':
-			delete pieces[row][col];
-			pieces[row][col] = new Knight(side);
+			delete pieces[toRow][toCol];
+			pieces[toRow][toCol] = new Knight(side);
 			break;
 		case 'b':
-			delete pieces[row][col];
-			pieces[row][col] = new Bishop(side);
+			delete pieces[toRow][toCol];
+			pieces[toRow][toCol] = new Bishop(side);
 			break;
 		default:
 			printf("Invalid selection! Defaulted to queen.\n");
-			delete pieces[row][col];
-			pieces[row][col] = new Queen(side);
+			delete pieces[toRow][toCol];
+			pieces[toRow][toCol] = new Queen(side);
 			break;
 	}
 }

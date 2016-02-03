@@ -117,19 +117,19 @@ bool Pawn::revertMove(ChessBoard &board, int fromRow, int fromCol, int toRow, in
 
 bool Pawn::enpassantCheck(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCol) {
 	  if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (fromRow == 4) && (fromCol-1 >=0) && (board.getPiece(fromRow, fromCol-1)->getSide() == BLACK)
-    && (board.getSaved()->getEpass() == true) && (board.getSaved()==board.getPiece(fromRow,toCol)) && (toRow == fromRow+1) && (toCol == fromCol-1)){
+    && (board.getLast()->getEpass() == true) && (board.getLast()==board.getPiece(fromRow,toCol)) && (toRow == fromRow+1) && (toCol == fromCol-1)){
 			return true;
 		}
 		else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (fromRow == 3) && (fromCol-1 >=0) && (board.getPiece(fromRow, fromCol-1)->getSide() == WHITE)
-    && (board.getSaved()->getEpass() == true) && (board.getSaved()==board.getPiece(fromRow,toCol)) && (toRow == fromRow-1) && (toCol == fromCol-1)){
+    && (board.getLast()->getEpass() == true) && (board.getLast()==board.getPiece(fromRow,toCol)) && (toRow == fromRow-1) && (toCol == fromCol-1)){
 			return true;
 		}
 	  else if((board.getPiece(fromRow, fromCol)->getSide() == WHITE) && (fromRow == 4) && (fromCol+1 <= 7) && (board.getPiece(fromRow, fromCol+1)->getSide() == BLACK)
-    && (board.getSaved()->getEpass() == true) && (board.getSaved()==board.getPiece(fromRow,toCol)) && (toRow == fromRow+1) && (toCol == fromCol+1)){
+    && (board.getLast()->getEpass() == true) && (board.getLast()==board.getPiece(fromRow,toCol)) && (toRow == fromRow+1) && (toCol == fromCol+1)){
 			return true;
 		}
 		else if((board.getPiece(fromRow, fromCol)->getSide() == BLACK) && (fromRow == 3) && (fromCol+1 <=7) && (board.getPiece(fromRow, fromCol+1)->getSide() == WHITE)
-    && (board.getSaved()->getEpass() == true) && (board.getSaved()==board.getPiece(fromRow,toCol)) && (toRow == fromRow-1) && (toCol == fromCol+1)){
+    && (board.getLast()->getEpass() == true) && (board.getLast()==board.getPiece(fromRow,toCol)) && (toRow == fromRow-1) && (toCol == fromCol+1)){
 			return true;
 		}
 
