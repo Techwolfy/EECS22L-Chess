@@ -89,7 +89,6 @@ int main(int argc, char *argv[]) {
 				} while(board->move(ai->getSide(), fromRow, fromCol, toRow, toCol) == false);
 				playerMove = true;
 			}
-			board->display();
 		}
 
 		//Game over
