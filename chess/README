@@ -2,7 +2,7 @@ Knight++
 ========
 
 Author: Knight++
-Version: 0.0.1 Alpha
+Version: 1.0 Release
 Date: 1/27/16
 
 File List
@@ -28,13 +28,3 @@ License
 -------
 Knight++ is available under the GNU General Public License, version 3.0.
 For more informaion, please see `COPYRIGHT`.
-
-Frequent Error Messages
-------------------------
-Move is out of bounds! - There is an attempt to move a piece not in the 
-range of the chessboard. 
-
-No move made! - There is an attempt to move a piece to the same spot.
-
-Invalid move! - There is an attempt to make an illegal move for the wrong
-piece. 
