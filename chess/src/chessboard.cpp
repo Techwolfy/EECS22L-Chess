@@ -175,15 +175,72 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 			printf("Error moving piece!\n");
 			return false;
 		}
-    lastPiece = pieces[toRow][toCol];
-		//FIXME: Preliminary log
+
+  lastPiece = pieces[toRow][toCol];
+
 		printf("%c%d %c%d\n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
 		if(logFile != NULL) {
-			fprintf(logFile, "%c%d %c%d\n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
-			fflush(logFile);
-		}
+            //log player color 
+            switch(pieces[fromRow][fromCol]->getSide()){
+                case WHITE:
+                    fprintf(logFile, "White ");
+                    printf("%d", pieces[fromRow][fromCol]->getSide());
+                    break;
+                case BLACK:
+                    fprintf(logFile, "Black ");
+                    printf("%d", pieces[fromRow][fromCol]->getSide());
+                    break;
+                default:
+                    printf("%d", pieces[fromRow][fromCol]->getSide());
+                    break;
+            }
+            //log the piece type
+            switch(pieces[fromRow][fromCol]->getType()){
+                case PAWN:
+                    fprintf(logFile, "P ");
+                    break;
+                case ROOK:
+                    fprintf(logFile, "R ");
+                    break;
+                case KNIGHT:
+                    fprintf(logFile, "N ");
+                    break;
+                case BISHOP:
+                    fprintf(logFile, "B ");
+                    break;
+                case QUEEN:
+                    fprintf(logFile, "Q ");
+                    break;
+                case KING:
+                    fprintf(logFile, "K ");
+                    break;
+                default:
+                    printf("%d", pieces[fromRow][fromCol]->getType());
+                    break;
+            }
+            //log positions
+            switch(pieces[fromRow][fromCol]->getSide()){
+                case WHITE:
+                    fprintf(logFile, "%c%d -> %c%d \n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
+                    if (getWinner() == WHITE){
+                      fprintf(logFile, "White is the winner!");
+                    }
+                    fflush(logFile);
+                    break;
+                case BLACK:
+                    fprintf(logFile, "%c%d -> %c%d \n ", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
+                    if (getWinner() == BLACK){
+                      fprintf(logFile, "Black is the winner!");
+                    }                    
+                    fflush(logFile);
+                    break;
+                default:
+                    printf("%d", pieces[fromRow][fromCol]->getSide());
+                    break;
+		        }
 	}
 	return true;
+ }
 }
 
 //Swap two pieces
@@ -239,6 +296,9 @@ void ChessBoard::promote(side_t side, int fromRow, int fromCol, int toRow, int t
 			pieces[toRow][toCol] = new Queen(side);
 			break;
 	}
+  if(logFile != NULL){
+    fprintf(logFile, "Pawn promoted to %c \n", promoteType);
+  }
 }
 
 //Determine if a square is threatened by another piece (i.e. it could move there next turn)
@@ -325,3 +385,17 @@ void ChessBoard::listPieces(chess_t list[8][8]) {
 		}
 	}
 }
+
+/*void copyboard(ChessBoard &bdto,ChessBoard &bdorigin){
+    int i,j;//needs to be done,someone help
+    for(int i = 0; i < 8; i++) {
+		for(int j = 0; j < 8; j++) {
+			bdto.Pieces[i][j]=bdorigin.getPiece(i,j);
+		}
+    }
+}
+*/
+
+
+
+
