@@ -28,7 +28,6 @@ ChessBoard::ChessBoard() : pieces{
 	if(logFile == NULL) {
 		printf("Failed to open log file! No log file will be used for this game.\n");
 	}
-
 }
 
 //Destructor
@@ -164,12 +163,17 @@ bool ChessBoard::move(side_t side, int fromRow, int fromCol, int toRow, int toCo
 		//Invalid move
 		return false;
 	} else {
+		//Make sure the king isn't in check
+		if(!moveResolvesCheck(side, fromRow, fromCol, toRow, toCol)) {
+			printf("Error moving piece; the king cannot be left in check!\n");
+			return false;
+		}
+
 		//Move the piece
 		if(!pieces[fromRow][fromCol]->move(*this, fromRow, fromCol, toRow, toCol)) {
 			printf("Error moving piece!\n");
 			return false;
 		}
-  previousPiece = pieces[toRow][toCol];
 
 		//FIXME: Preliminary log
 		printf("%c%d %c%d\n", fromCol + 'a', fromRow + 1, toCol + 'a', toRow + 1);
@@ -189,8 +193,8 @@ void ChessBoard::swap(int fromRow, int fromCol, int toRow, int toCol) {
 }
 
 //Pawn promotion
-void ChessBoard::promote(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
-	if(pieces[fromRow][fromCol]->getType() != PAWN) {
+void ChessBoard::promote(side_t side, int row, int col) {
+	if(pieces[row][col]->getType() != PAWN) {
 		printf("Error; only pawns can be promoted!\n");
 		return;
 	}
@@ -208,37 +212,27 @@ void ChessBoard::promote(side_t side, int fromRow, int fromCol, int toRow, int t
 	//Promote the pawn
 	switch(promoteType) {
 		case 'q':
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Queen(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Queen(side);
 			break;
 		case 'r':
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Rook(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Rook(side);
 			break;
 		case 'k':
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Knight(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Knight(side);
 			break;
 		case 'b':
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Bishop(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Bishop(side);
 			break;
 		default:
 			printf("Invalid selection! Defaulted to queen.\n");
-			delete pieces[toRow][toCol];
-			pieces[toRow][toCol] = new Queen(side);
+			delete pieces[row][col];
+			pieces[row][col] = new Queen(side);
 			break;
 	}
-}
-
-//Save previous moved piece
-void ChessBoard::savePiece(int row, int col) {
-    previousPiece = pieces[row][col];
-}
-
-//Get previous moved piece
-Piece* ChessBoard::getSaved(){
-		return previousPiece;
 }
 
 //Determine if a square is threatened by another piece (i.e. it could move there next turn)
@@ -267,6 +261,56 @@ side_t ChessBoard::isThreatened(int row, int col) {
 	return threatenedSide;
 }
 
+bool ChessBoard::moveResolvesCheck(side_t side, int fromRow, int fromCol, int toRow, int toCol) {
+	for(int i = 0; i < 8; i++) {
+		for(int j = 0; j < 8; j++) {
+			//Find the king
+			if(pieces[i][j]->getType() == KING && pieces[i][j]->getSide() == side) {
+				//Check if the king is threatened
+				side_t threat = isThreatened(i, j);
+				if(threat != side && threat != NEITHER) {
+					//Test for moving out of check (temporarily move the king to the new location)
+					if(i == fromRow && j == fromCol) {
+						swap(fromRow, fromCol, toRow, toCol);
+						threat = isThreatened(i, j);
+						swap(toRow, toCol, fromRow, fromCol);
+						if(threat == side || threat == NEITHER) {
+							//Move resolves conflict
+							return true;
+						}
+					}
+
+					//Test for capturing the threatening piece
+					pieces[toRow][toCol]->setCaptured(true);
+					threat = isThreatened(i, j);
+					pieces[toRow][toCol]->setCaptured(false);
+					if(threat == side || threat == NEITHER) {
+						//Move resolves conflict
+						return true;
+					}
+
+					//Test for blocking the threatening piece (temporarily swap target piece with a knight of the same color)
+					Piece *temp = pieces[toRow][toCol];
+					pieces[toRow][toCol] = new Knight(side);
+					threat = isThreatened(i, j);
+					delete pieces[toRow][toCol];
+					pieces[toRow][toCol] = temp;
+					if(threat == side || threat == NEITHER) {
+						//Move resolves conflict
+						return true;
+					}
+
+					//All tests have failed
+					return false;
+				}
+			}
+		}
+	}
+
+	//King was not in check, or no king was found
+	return true;
+}
+
 //Store a list of all pieces and their positions in the provided array
 void ChessBoard::listPieces(chess_t list[8][8]) {
 	for(int i = 0; i < 8; i++) {
@@ -275,5 +319,3 @@ void ChessBoard::listPieces(chess_t list[8][8]) {
 		}
 	}
 }
-
-
