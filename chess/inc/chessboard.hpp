@@ -24,7 +24,7 @@ public:
 	void swap(int fromRow, int fromCol, int toRow, int toCol);
 	void promote(side_t side, int row, int col);
 	side_t isThreatened(int row, int col);
-	void availableMoves(int moves[8][8][8][8], side_t side);
+	void listPieces(chess_t list[8][8]);
 
 private:
 	//Variables

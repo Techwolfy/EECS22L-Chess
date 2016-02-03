@@ -255,16 +255,11 @@ side_t ChessBoard::isThreatened(int row, int col) {
 	return threatenedSide;
 }
 
-//Store a list of all possible moves in a 4D array
-void ChessBoard::availableMoves(int moves[8][8][8][8], side_t side) {
+//Store a list of all pieces and their positions in the provided array
+void ChessBoard::listPieces(chess_t list[8][8]) {
 	for(int i = 0; i < 8; i++) {
 		for(int j = 0; j < 8; j++) {
-			for(int k = 0; k < 8; k++) {
-				for(int l = 0; l < 8; l++) {
-					moves[i][j][k][l] = checkMove(side, i, j, k, l) ? 1 : 0;
-					printf("%d", moves[i][j][k][l]);
-				}
-			}
+					list[i][j] = pieces[i][j]->getType();
 		}
 	}
 }
