@@ -87,26 +87,12 @@ bool Pawn::move(ChessBoard &board, int fromRow, int fromCol, int toRow, int toCo
       }
 	}
 	else {
-		if(board.getPiece(fromRow, fromCol)->getSide() == WHITE){
 			board.getPiece(fromRow, toCol)->setCaptured();
 			board.swap(fromRow, fromCol, toRow, toCol);
 			hasMoved = true;
 			return true;
 		}
-	 else {
-		if(side == WHITE) {
-			board.getPiece(toRow - 1, toCol)->setCaptured();
-			board.swap(fromRow, fromCol, toRow, toCol);
-			hasMoved = true;
-			return true;
-		} else {
-			board.getPiece(toRow + 1, toCol)->setCaptured();
-			board.swap(fromRow, fromCol, toRow, toCol);
-			hasMoved = true;
-			return true;
-		}
-	}
- }
+	
    //All Checks Fail
    return false;
 }
