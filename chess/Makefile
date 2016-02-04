@@ -3,7 +3,7 @@
 CXX=g++
 CFLAGS=-std=c++0x -g -Iinc
 OBJS=player.o ai.o aischolar.o piece.o chessboard.o king.o knight.o queen.o rook.o bishop.o pawn.o
-TESTS=test-piece test-bishop test-rook test-knight test-queen test-scholarsmate test-check
+TESTS=test-piece test-pawn test-bishop test-rook test-knight test-queen test-scholarsmate test-check
 
 #Build everything
 .PHONY: all
