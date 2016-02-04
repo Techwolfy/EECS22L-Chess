@@ -1,3 +1,6 @@
+**Note: This was a group project created by 8 people, who are attributed in the documentation.**
+**The L16T12 account appearing in all previous commits is a team account left over from CVS migration.**
+
 Knight++
 ========
 
