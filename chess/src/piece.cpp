@@ -10,7 +10,7 @@ Piece::Piece() : type(NONE),
 				 display(" "),
 				 hasMoved(true),
 				 isCaptured(true),
-				 enPassant(false) {
+				 inEpass(false) {
 
 }
 
@@ -58,12 +58,12 @@ void Piece::setCaptured(bool captured /* = true */) {
 	isCaptured = captured;
 }
 
-bool Piece::getEnPassant() {
-   return enPassant;
+bool Piece::getEpass() {
+   return inEpass;
 }
 
-void Piece::setEnPassant(bool valid) {
-    enPassant = valid;
+void Piece::setEpass() {
+    inEpass = true;
 }
 
 //Check if a move is valid
